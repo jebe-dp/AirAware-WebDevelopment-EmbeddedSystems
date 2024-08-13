@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sensor Data</title>
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="myChart"></div>
+
+    <script>
+        // Define data
+        var trace1 = {
+            x: [
+                {% for data in sensor_data %}
+                    "{{ data.created_at }}",
+                {% endfor %}
+            ],
+            y: [
+                {% for data in sensor_data %}
+                    {{ data.temp|default:"null" }},
+                {% endfor %}
+            ],
+            mode: 'lines',
+            name: 'Temperature'
+        };
+
+        var trace2 = {
+            x: [
+                {% for data in sensor_data %}
+                    "{{ data.created_at }}",
+                {% endfor %}
+            ],
+            y: [
+                {% for data in sensor_data %}
+                    {{ data.mlx_ambient_temp|default:"null" }},
+                {% endfor %}
+            ],
+            mode: 'lines',
+            name: 'MLX Ambient Temperature'
+        };
+
+        var trace3 = {
+            x: [
+                {% for data in sensor_data %}
+                    "{{ data.created_at }}",
+                {% endfor %}
+            ],
+            y: [
+                {% for data in sensor_data %}
+                    {{ data.ds_temp|default:"null" }},
+                {% endfor %}
+            ],
+            mode: 'lines',
+            name: 'DS Temperature'
+        };
+
+        var data = [trace1, trace2, trace3];
+
+        // Define layout
+        var layout = {
+            title: 'Temperature Variation',
+            xaxis: {
+                title: 'Time'
+            },
+            yaxis: {
+                title: 'Value'
+            }
+        };
+
+        // Plot using Plotly
+        Plotly.newPlot('myChart', data, layout);
+    </script>
+</body>
+</html>

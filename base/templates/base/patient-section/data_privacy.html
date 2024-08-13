@@ -1,0 +1,66 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/patient/data_privacy.css' %}">
+
+
+    <div class="form-container">
+
+        {% include 'back-button.html' %}
+        <h2>Data Privacy Notice</h2>
+        <p>At the Health Center, we are committed to protecting the privacy and confidentiality of your personal information. This Data Privacy Notice explains how we collect, use, disclose, and protect your personal data in accordance with the Data Privacy Act of 2012 (Republic Act No. 10173) and its implementing rules and regulations.</p>
+    
+        <ol>
+            <li><strong>Collection of Personal Information</strong><br>
+                We collect personal information directly from you when you interact with our website. This may include:
+                <ul>
+                    <li>Personal details such as your name, age, gender, social history and other personal information.</li>
+                    <li>Health-related information such as medical history, symptoms, and assessments.</li>
+                    <li>Other information you voluntarily provide to us.</li>
+                </ul>
+            </li>
+            <li><strong>Use of Personal Information</strong><br>
+                We collect personal information for the purpose of assessing health records, including but not limited to:
+                <ul>
+                    <li>To communicate with you regarding your health assessments and related matters.</li>
+                    <li>To comply with legal and regulatory requirements.</li>
+                    <li>For internal research, analysis, and development purposes.</li>
+                </ul>
+            </li>            
+            <li><strong>Disclosure of Personal Information</strong><br>
+                We may disclose your personal information to the following parties:
+                <ul>
+                    <li>Healthcare professionals and authorized personnel involved in providing our services.</li>
+                    <li>Government authorities or regulators as required by law.</li>
+                </ul>
+            </li>
+            <li><strong>Protection of Personal Information</strong><br>
+                We implement reasonable security measures to protect your personal information from unauthorized access, use, disclosure, alteration, or destruction. However, no method of transmission over the internet or electronic storage is completely secure, so we cannot guarantee absolute security.
+            </li>
+            <li><strong>Retention of Personal Information</strong><br>
+                We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Data Privacy Notice, unless a longer retention period is required or permitted by law.
+            </li>
+            <li><strong>Your Rights</strong><br>
+                You have the following rights with respect to your personal information:
+                <ul>
+                    <li>Right to access: You may request access to the personal information we hold about you.</li>
+                    <li>Right to rectification: You may request correction of inaccurate or incomplete personal information.</li>
+                    <li>Right to erasure: You may request deletion of your personal information under certain circumstances.</li>
+                    <li>Right to object: You may object to the processing of your personal information under certain circumstances.</li>
+                    <li>Right to data portability: You may request the transfer of your personal information to another organization under certain circumstances.</li>
+                </ul>
+            </li>
+        </ol>
+    
+        <form id="form" method="post">
+            {% csrf_token %}
+                <button type="submit" name="acceptTerms" value="accept">I accept the Terms and Conditions</button>
+                <button type="submit" name="acceptTerms" value="decline">I don't accept</button>
+        </form>
+    </div>
+
+
+
+{% endblock %}

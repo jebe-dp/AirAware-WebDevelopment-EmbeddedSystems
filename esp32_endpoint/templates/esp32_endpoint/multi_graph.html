@@ -1,0 +1,72 @@
+{% extends 'main.html' %}
+
+{% block title %}Environmental Monitoring Charts{%endblock%}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/multi_graph.css' %}">
+
+<body>
+    <div class="analysis-charts">
+        <h2>ENVIRONMENTAL MONITORING CHARTS</h2>
+    </div>
+    <div class="graph-container">
+        {% if graphs %}
+            {% for graph in graphs %}
+                <div class="graph-card">
+                    <h2>{{ graph.title }}</h2>
+                    <img src="{{ graph.url }}" alt="{{ graph.title }}">
+                    <div class="graph-statistics">
+                        <p class="graph-statistic">
+                            Average Value: {{ graph.avg_value|default:"N/A"|floatformat:2 }}
+                            {% if graph.title == 'Temperature' or graph.title == 'MLX Ambient Temperature' or graph.title == 'DS Temperature' or graph.title == 'Heat Index' %}
+                                &deg;C
+                            {% elif graph.title == 'Humidity' %}
+                                %
+                            {% elif graph.title == 'Air Gases' %}
+                                PPM
+                            {% elif graph.title == 'PM1' or graph.title == 'PM2.5' or graph.title == 'PM10' %}
+                                µg/m³
+                            {% endif %}
+                        </p>
+                        <p class="graph-statistic">
+                            High Value: {{ graph.high_value|default:"N/A"|floatformat:2 }}
+                            {% if graph.title == 'Temperature' or graph.title == 'MLX Ambient Temperature' or graph.title == 'DS Temperature' or graph.title == 'Heat Index' %}
+                                &deg;C
+                            {% elif graph.title == 'Humidity' %}
+                                %
+                            {% elif graph.title == 'Air Gases' %}
+                                PPM
+                            {% elif graph.title == 'PM1' or graph.title == 'PM2.5' or graph.title == 'PM10' %}
+                                µg/m³
+                            {% endif %}
+                            ({{ graph.high_time|date:"DATETIME_FORMAT" }})
+                        </p>
+                        <p class="graph-statistic">
+                            Low Value: {% if graph.low_value is not None %}{{ graph.low_value|floatformat:2 }} {% endif %}
+                            {% if graph.title == 'Temperature' or graph.title == 'MLX Ambient Temperature' or graph.title == 'DS Temperature' or graph.title == 'Heat Index' %}
+                                &deg;C
+                            {% elif graph.title == 'Humidity' %}
+                                %
+                            {% elif graph.title == 'Air Gases' %}
+                                PPM
+                            {% elif graph.title == 'PM1' or graph.title == 'PM2.5' or graph.title == 'PM10' %}
+                                µg/m³
+                            {% endif %}
+                            ({{ graph.low_time|date:"DATETIME_FORMAT" }})
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+    </div>
+</body>
+
+
+{% endblock %}
+
+

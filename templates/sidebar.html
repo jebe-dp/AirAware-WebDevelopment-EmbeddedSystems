@@ -1,0 +1,47 @@
+<div class="sidebar">
+    <div class="logo-details">
+        <div class="logo_name">Staff</div>
+        <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <a href="{% url 'dashboard' %}">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+            <a href="{% url 'unverifiedforms' %}">
+                <i class='bx bx-edit'></i>
+                <span class="links_name">Unverified Forms</span>
+            </a>
+            <span class="tooltip">Unverified Forms</span>
+        </li>
+
+        <li>
+            <a href="{% url 'view_records' %}">
+                <i class='bx bxs-user-detail'></i>
+                <span class="links_name">Patient Records</span>
+            </a>
+            <span class="tooltip">Patients Records</span>
+        </li>
+
+        <li>
+            <a href="{% url 'manage_users' %}">
+                <i class='bx bx-user'></i>
+                <span class="links_name">Manage Users</span>
+            </a>
+            <span class="tooltip">Manage Users</span>
+        </li>
+
+        <li>
+            <a href="{% url 'learn_more' %}">
+                <i class='bx bx-info-circle'></i>
+                <span class="links_name">Learn More</span>
+            </a>
+            <span class="tooltip">Learn More</span>
+        </li>
+    </ul>
+</div>

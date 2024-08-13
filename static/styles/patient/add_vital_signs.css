@@ -1,0 +1,408 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    overflow-x: hidden;
+}
+
+.title {
+    text-align: center;
+    color: #236FC8;
+    margin: 40px auto;
+}
+
+.container {
+  overflow-x: hidden;
+  display: flex;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#authorization-form {
+    width: 70%;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#content-container{
+    justify-content: center;
+    width: 68%;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+.auth-container.auth-max,
+.auth-container.auth-mlx {
+  display: flex;
+  justify-content: right;
+}
+
+.auth-container.hidden {
+  display: none;
+}
+
+.submit-btn {
+    padding-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#add-vital-signs-btn {
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 10px;
+  border: none;
+  color: #fff;
+  background-color: #5bb450;
+}
+
+#add-vital-signs-btn:hover {
+  background-color: #276221
+}
+
+#table,
+#graphs {
+    background: white;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.button-container {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+}
+
+.button-container.bp .input-field {
+    
+    justify-content: center;
+    align-items: center;
+}
+
+.button-container.bp label {
+    margin-right: 5px;
+}
+
+.button-container.bp input[type="number"] {
+    width: 50%;
+    width: 70px;
+    margin-right: 10px;
+}
+
+
+
+.auth-container {
+    margin-left: 10px;
+}
+
+.input-field {
+    margin-top: 10px;
+}
+
+.input-field label {
+    color: #236FC8;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.auth-container input.auth-code-max,
+.auth-container input.auth-code-mlx
+ {
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  border: 1px solid #ced4da;
+  border-radius: 50px;
+}
+
+.input-field input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 50px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-field #systolic_bp,
+.input-field #diastolic_bp{
+    width: 40%;
+}
+
+
+.input-field input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 8px rgba(128, 189, 255, 0.5);
+}
+
+.request-auth-btn,.submit-auth-btn {
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-left: 5px ;
+    font-weight: bold;
+}
+
+
+.submit-auth-btn {
+    background-color: #24344B;
+}
+
+.submit-auth-btn:hover {
+    background-color: #0056b3;
+}
+.request-auth-btn {
+    background-color: #007bff;
+}
+.request-auth-btn:hover {
+    background-color: #007bff;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+#navbar {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+#navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#navbar li {
+  float: left;
+}
+
+#navbar li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+#navbar li a:hover {
+  background-color: #ddd;
+}
+
+#navbar li a.active {
+  background-color: #236FC8;
+  color: white;
+}
+
+#table {
+display: block;
+}
+
+.tabcontent {
+display: none;
+padding: 20px;
+border-top: 1px solid #ccc;
+}
+
+.tabcontent h2 {
+color: #236FC8;
+text-align: center;
+}
+.chart-card h3 {
+font-size: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+  justify-content: space-between;
+}
+
+.chart-card {
+  flex: 0 1 calc(50% - 10px); 
+  background: white;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box; 
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+@media (max-width: 768px) {
+
+  body {
+    background-color: #fff;
+  }
+  
+  .container {
+      margin: 0;
+      padding: 0;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .button-container {
+    margin: 5px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .auth-container {
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.request-auth-btn {
+    padding: 5px;
+    width: 60%;
+}
+
+  .auth-container input.auth-code-max,
+.auth-container input.auth-code-mlx {
+    font-size: 12px;
+    width: 70%;
+}
+
+  #authorization-form, #content-container {
+    margin: 0;
+      width: 100%;
+      padding: 10px;
+  }
+
+  .chart-card {
+      flex: 0 1 calc(100% - 10px); 
+      width: 100%;
+      margin-bottom: 20px;
+  }
+
+  #navbar ul {
+      display: flex;
+      justify-content: center;
+  }
+
+  #navbar li {
+    font-size: 12px;
+      float: none;
+      margin: 0 10px;
+  }
+
+  .submit-auth-btn {
+    padding: 5px;
+  }
+
+  .input-field label {
+    padding-top: 10px;
+    font-size: 12px;
+  }
+
+  .input-field input,#add-vital-signs-btn,  .chart-card h3  {
+    font-size: 12px;
+  }
+
+
+  .tabcontent thead tr {
+    font-size: 14px;
+  }
+
+  .tabcontent tbody tr {
+    font-size: 12px;
+  }
+
+  .tabcontent h2 {
+    font-size: 12px;
+  }
+  
+  #table,
+#graphs {
+  padding: 5px;
+  margin: 5px;
+}
+
+
+}
+
+@media only screen and (max-width: 768px) {
+
+  #table {
+      overflow-x: auto;
+  }
+}
+
+
+@media  (max-width: 425px) {
+.request-auth-btn, #add-vital-signs-btn {
+  width: 100%;
+}
+}
+
+@media  (max-width: 500px) {
+
+.charts-container {
+  overflow-x: auto;
+}
+
+#content-container {
+  margin-top: 20px;
+}
+
+}

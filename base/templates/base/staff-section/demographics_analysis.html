@@ -1,0 +1,90 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% load static %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'styles/staff/social_analysis.css' %}">
+
+<div class="container">
+    <!-- Your existing chart containers -->
+
+    <!-- Display highest and lowest statistics -->
+    <div class="analysis-desc">
+        <h2>Highest Statistics</h2>
+        <p>Cough: {{ cough_highest.0 }} - {{ cough_highest.1 }}</p>
+        <p>Tuberculosis: {{ tuberculosis_highest.0 }} - {{ tuberculosis_highest.1 }}</p>
+        <p>Smoker: {{ smoker_highest.0 }} - {{ smoker_highest.1 }}</p>
+        <p>Asthma: {{ asthma_highest.0 }} - {{ asthma_highest.1 }}</p>
+    </div>
+    <div class="analysis-desc">
+        <h2>Lowest Statistics</h2>
+        <p>Cough: {{ cough_lowest.0 }} - {{ cough_lowest.1 }}</p>
+        <p>Tuberculosis: {{ tuberculosis_lowest.0 }} - {{ tuberculosis_lowest.1 }}</p>
+        <p>Smoker: {{ smoker_lowest.0 }} - {{ smoker_lowest.1 }}</p>
+        <p>Asthma: {{ asthma_lowest.0 }} - {{ asthma_lowest.1 }}</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="chart-container">
+        <h2>Smoker Count by Location</h2>
+        <canvas id="smokerCountChart" width="400" height="200"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>Cough Count by Location</h2>
+        <canvas id="coughCountChart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Tuberculosis Count by Location</h2>
+        <canvas id="tuberculosisCountChart" width="400" height="200"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>Asthma Count by Location</h2>
+        <canvas id="asthmaCountChart" width="400" height="200"></canvas>
+    </div>
+</div>
+
+
+<script>
+    var labels = JSON.parse('{{ labels|escapejs }}');
+    var coughCounts = JSON.parse('{{ cough_counts|escapejs }}');
+    var tuberculosisCounts = JSON.parse('{{ tuberculosis_counts|escapejs }}');
+    var smokerCounts = JSON.parse('{{ smoker_counts|escapejs }}');
+    var asthmaCounts = JSON.parse('{{ asthma_counts|escapejs }}');
+
+    function createBarChart(canvasId, data, label, color) {
+        var ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: label,
+                    data: data,
+                    backgroundColor: color,
+                    borderColor: color.replace('0.6', '1'),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+    createBarChart('coughCountChart', coughCounts, 'Cough Count', 'rgba(255, 99, 132, 0.7)');
+    createBarChart('tuberculosisCountChart', tuberculosisCounts, 'Tuberculosis Count', 'rgba(54, 162, 235, 0.7)');
+    createBarChart('smokerCountChart', smokerCounts, 'Smoker Count', 'rgba(255, 206, 86, 0.7)');
+    createBarChart('asthmaCountChart', asthmaCounts, 'Asthma Count', 'rgba(75, 192, 192, 0.7)');
+    
+</script>
+
+{% endblock content %}

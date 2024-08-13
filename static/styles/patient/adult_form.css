@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-weight: 380;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #24344B;
+    overflow: auto;
+  }
+  
+  .navbar {
+    background-color: #24344B;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid #ffffff;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-brand img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .navbar-brand h1 {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-item {
+    margin-left: 15px;
+  }
+  
+ 
+  .container {
+    max-width: 1000px;
+    width: 100%;
+    background: #f9f9f9;
+    padding: 25px 30px;
+    border-radius: 5px;
+    margin-top: 60px;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .container .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+    color: #24344B;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .container .title::before {
+    content: "";
+    position: absolute;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    height: 3px;
+    width: 30px;
+    bottom: 0%;
+    left: 0%;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    justify-content: center;
+  }
+  
+  .input-box {
+    width: calc(50% - 10px);
+    margin-bottom: 30px;
+  }
+
+  .patient_profile,
+  .economic_numbers,
+  .social_history,
+  .medical_history,
+  .child_details,
+  .newborn_status,
+  .immunization_history {
+    margin-top: 35px;
+    margin-bottom: 35px;
+    align-items: center;
+  }
+
+  
+
+  .patient_profile h3,
+  .economic_numbers h3,
+  .social_history h3,
+  .medical_history h3,
+  .child_details h3,
+  .newborn_status h3,
+  .immunization_history h3 {
+    color: #1c5a7f;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .input-box input,
+  input[type="date"],
+  select {
+    height: 45px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    transition: all 0.3 ease;
+  }
+
+  .user-details label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+    color: #24344B;
+    margin-top: 8px;
+  }
+
+  .button {
+    margin-top: 30px;
+    margin-right: 10px;
+    justify-content: center ;
+    display: flex;
+  }
+  
+  .button input {
+    height: 50px;
+    width: 120px;
+    outline: none;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    background: #24344B;
+    cursor: pointer;
+    justify-content: center;
+  }
+  
+  .button input:hover {
+    background-color: #0c182b; 
+  }
+  
+  
+  
+@media (max-width: 600px) {
+    .container {
+      padding: 15px;
+      margin-top: 0px;
+    }
+  
+    .input-box {
+      width: 100%;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+
+    .input-box input,
+    input[type="date"],
+    select {
+    font-size: 12px;
+    }
+  
+    .category {
+      width: 100%;
+    }
+  
+    form .button {
+      margin: 10px auto; 
+      font-size: 12px;
+    }
+  
+    .title {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  
+    .details {
+      font-size: 14px; 
+    }
+  
+    .navbar-brand h1 {
+      display: none;
+    }
+  
+    .nav-link {
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+  
+    body{
+      background-color: white;
+    }
+  
+  }
+  

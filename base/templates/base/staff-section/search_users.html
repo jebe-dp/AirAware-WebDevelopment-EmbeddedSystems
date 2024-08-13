@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/staff/manage_users.css' %}">
+
+<div class="manage-container">
+    <h2 class="manage-title">Manage Users</h2>
+
+        <form method="GET" action="{% url 'search_users' %}" class="search-form">
+            <input type="text" name="search_query" placeholder="Search by Patient Name">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+    
+    <table class="manage-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Patient Name</th>
+                <th>Date Registered</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr class="{% cycle 'even' 'odd' %}">
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+                <td>{{ patient.date_joined }}</td>
+                <td>
+                    <a href="{% url 'staff_view_profile' user_id=patient.id %}" class="view-button" target="_blank">View</a>
+                    <a href="{% url 'staff_suspend_user' user_id=patient.id %}" class="view-button suspend-button" style="background-color: red; color: white;" target="_blank">Suspend</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</div>
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% include 'sections.html' %}
+
+{% block content %}
+
+{% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/staff/view_records.css' %}">
+
+<body>
+    <div class="container">
+        <div class="records-container">
+            <h2 class="records-title">Patient Records</h2>
+
+            <form method="GET" action="{% url 'search_records' %}" class="search-form" target="_blank">
+                <input type="text" name="search_query" placeholder="Search by Patient Name">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patient Name</th>
+                        <th>Birthdate</th>
+                        <th>Record Type</th>
+                        <th>Record Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for form_data in verified_forms_data %}
+                    <tr>
+                        <td>{{ form_data.id }}</td>
+                        <td>{{ form_data.patient_name }}</td>
+                        <td>{{ form_data.birthdate }}</td>
+                        <td>{{ form_data.record_type }}</td>
+                        <td>{{ form_data.datetime_created }}</td>
+                        <td>
+                            <a href="{% url 'staff_view_form' form_id=form_data.form_id %}" class="view-button" target="_blank">View</a>
+                            <a href="{% url 'add_doctor_order' form_id=form_data.form_id %}" class="add-doctor-notes" target="_blank">Doc Order</a>
+                            <a href="{% url 'add_nurse_notes' form_id=form_data.form_id %}" class="add-nurse-notes" target="_blank">Nurse Notes</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                        </td>
+                    </tr>          
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+    
+    {% endblock %}

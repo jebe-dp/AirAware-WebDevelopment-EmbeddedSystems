@@ -1,0 +1,57 @@
+{% include 'main.html' %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/patient/pediatric_form.css' %}">
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script> 
+
+<body>
+    <div class="container">
+        {% include 'back-button.html' %}
+        <div class="title">PEDIATRIC PATIENT FORM</div>
+        <form method="post">
+            <div class="user-details">
+               
+            {% csrf_token %}
+                <div class="input-box">
+
+                    <div class="patient_profile">
+                        <h3>PATIENT DETAILS</h3>
+                        {{ user_profile_form.location.label_tag }}
+                        {{ user_profile_form.location }}
+                        {{ user_profile_form.address.label_tag }}
+                        {{ user_profile_form.address }}
+                        {{ user_profile_form.sex.label_tag }}
+                        {{ user_profile_form.sex }}
+                        {{ user_profile_form.age.label_tag }}
+                        {{ user_profile_form.age }}
+                        {{ pediatric_details_form.as_p }}
+                    </div>
+                    <div class="economic_numbers">
+                        <h3>HEALTH IDENTIFICATION</h3>
+                        {{ economic_numbers_form.as_p }}
+                    </div>
+                    <div class="immunization_history">
+                        <h3>IMMUNIZATION HISTORY</h3>
+                        {{ immunization_history_form.as_p }}
+                    </div>
+                    <div class="social_history">
+                        <h3>SOCIAL HISTORY</h3>
+                        {{ social_history_form.as_p }}
+                    </div>
+                    <div class="medical_history">
+                        <h3>MEDICAL HISTORY</h3>
+                        {{ medical_history_form.as_p }}
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div class="button">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock content %}

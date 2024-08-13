@@ -1,0 +1,418 @@
+
+<div class="hide-on-pdf">
+
+    {% include 'main.html' %}
+
+    {% block content %}
+
+</div>
+
+{% load custom_filters %}
+{% load static %}
+    
+<link rel="stylesheet" href="{% static 'styles/patient/patient_view_form.css' %}">
+
+<div class="container">
+    <h1 class="main-title">Patient Medical Record</h1>
+    <div class="hide-on-pdf">
+        
+            {% if request.user.is_staff %}
+    
+            <div class="form-buttons">
+                
+                {% if form.status == 'Unverified' %}
+                    <a href="{% url 'staff_accept_form' form_id=form.id %}" class="btn btn-accept"><i class="fa-solid fa-check"></i>Accept</a>
+                    <a href="{% url 'staff_delete_form' form_id=form.id %}" class="btn btn-danger"><i class="fa-solid fa-xmark"></i>Reject</a>
+                {% else %}
+                    <a href="{% url 'staff_generate_pdf' form_id=form.id  %}" class="btn btn-primary"><i class="fa-solid fa-file-pdf"></i>Generate PDF</a>
+                    <a href="{% url 'staff_update_form' form_id=form.id %}" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i>Update</a>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if not request.user.is_staff %}
+    
+            <div class="form-buttons">
+                <a href="{% url 'patient_update_form' form_id=form.id %}" class="btn btn-success"><i class="fa-solid fa-pen-to-square"></i>Update</a>
+             {% if form.status == 'Verified' %}
+                <a href="{% url 'generate_pdf' form_id=form.id %}" class="btn btn-primary"><i class="fa-solid fa-file-pdf"></i>Generate PDF</a>
+            {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+
+        <div class="form-section">
+            <div class="status">
+                <p><strong>First Name:</strong> {{ user_profile.user.first_name }}</p>
+                <p><strong>Last Name:</strong> {{ user_profile.user.last_name }}</p>
+                <p><strong>Birth Date:</strong> {{ user_profile.user.birth_date }}</p>
+                <br>
+                <p><strong>Form Status:</strong> {{ form.status }}</p>
+                <p><strong>Record Type:</strong> {{ form.title }}</p>
+            </div>
+            
+                
+            <div class="details">
+                {% if form.record_type == 'Adult' %}
+    
+                <div class="info-container">
+                    <h2 class="form-title">Adult Details</h2>
+                    <p><strong>Birth Date:</strong> {{ user_profile.user.birth_date }}</p>
+                    <p><strong>Age:</strong> {{ user_profile.age }}</p>
+                    <p><strong>Sex:</strong> {{ user_profile.sex }}</p>
+                    <p><strong>Civil Status:</strong> {{ user_profile.civil_status }}</p>
+                    <p><strong>Religion:</strong> {{ user_profile.religion }}</p>
+                    <p><strong>Address:</strong> {{ user_profile.address }}</p>
+                    <p><strong>Educational Attainment:</strong> {{ user_profile.educational_attainment }}</p>
+                    <p><strong>Occupation:</strong> {{ user_profile.occupation }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Medical History</h2>
+                    <p><strong>Diabetes:</strong> {{ medical_history.diabetes|yes_no }}</p>
+                    <p><strong>Asthma:</strong> {{ medical_history.asthma|yes_no }}</p>
+                    <p><strong>Hypertension (HPN):</strong> {{ medical_history.hypertension|yes_no }}</p>
+                    <p><strong>Pulmonary Tuberculosis (PTB):</strong> {{ medical_history.pulmonary_tubercolosis|yes_no }}</p>
+                    <p><strong>Cancer:</strong> {{ medical_history.cancer|yes_no }}</p>
+                    <p><strong>Cough:</strong> {{ medical_history.cough_2_weeks|yes_no }}</p>
+                    <p><strong>Other Medical History:</strong> {{ medical_history.other_medical_history }}</p>
+                    <p><strong>Medication Taken:</strong> {{ medical_history.medication_taken }}</p>
+                    <p><strong>Family Planning:</strong> {{ medical_history.family_planning|yes_no }}</p>
+                    <p><strong>Adult Immunization:</strong> {{ medical_history.adult_immunization|yes_no }}</p>
+                    <p><strong>Immunization Date:</strong> {{ medical_history.immunization_date }}</p>
+                </div>
+                
+                <div class="info-container">
+                    <h2 class="form-title">Health Identification Number</h2>
+                    <p><strong>Philhealth Number:</strong> {{ economic_numbers.philhealth_num }}</p>
+                    <p><strong>NHTS Number:</strong> {{ economic_numbers.nhts_num }}</p>
+                    <p><strong>4Ps Member:</strong> {{ economic_numbers.patient_4ps_member|yes_no }}</p>
+                </div>
+                
+                <div class="info-container">
+                    <h2 class="form-title">Social History</h2>
+                    <p><strong>Smoker:</strong> {{ social_history.smoker|yes_no }}</p>
+                    <p><strong>Alcohol Intake:</strong> {{ social_history.alcohol_intake|yes_no }}</p>
+                    <p><strong>Prohibited Drug:</strong> {{ social_history.prohibited_drug|yes_no }}</p>
+                    <p><strong>Cigarette Sticks Per Day:</strong> {{ social_history.cigarette_sticks_per_day }}</p>
+                </div>
+                
+                {% if form.status == 'Verified' %}
+    
+                <div class="info-container">
+                    <h2 class="form-title">Doctor Order</h2>
+                    <p><strong>Chief Complaint:</strong> {{ doctor_order.chief_complaint }}</p>
+                    <p><strong>Findings:</strong> {{ doctor_order.findings }}</p>
+                    <p><strong>Impression:</strong> {{ doctor_order.impression }}</p>
+                    <p><strong>Management:</strong> {{ doctor_order.management }}</p>
+                    <p><strong>Filled Datetime:</strong> {{ doctor_order.filled_datetime }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Nurse Notes</h2>
+                    <p><strong>Admission Date:</strong> {{ nurse_notes.admission_date }}</p>
+                    <p><strong>Admission Time:</strong> {{ nurse_notes.admission_time }}</p>
+                    <p><strong>Subjective Complaint:</strong> {{ nurse_notes.subjective_complaint }}</p>
+                    <p><strong>Objective Findings:</strong> {{ nurse_notes.objective_findings }}</p>
+                    <p><strong>Implementation:</strong> {{ nurse_notes.implementation }}</p>
+                    <p><strong>Assessment:</strong> {{ nurse_notes.assessment }}</p>
+                    <p><strong>Plan:</strong> {{ nurse_notes.plan }}</p>
+                    <p><strong>Filled Datetime:</strong> {{ nurse_notes.filled_datetime }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Vital Signs</h2>
+                    <p><strong>Weight (kg):</strong> {{ vital_signs.weight_in_kg }}</p>
+                    <p><strong>Height (cm):</strong> {{ vital_signs.height_in_cm }}</p>
+                    <p><strong>Nutritional Status:</strong> {{ vital_signs.nutritional_status }}</p>
+                    <p><strong>BMI:</strong> {{ vital_signs.BMI }}</p>
+                    <p><strong>Body Temperature:</strong> {{ vital_signs.body_temperature }}</p>
+                    <p><strong>Pulse Rate:</strong> {{ vital_signs.pulse_rate }}</p>
+                    <p><strong>Blood Oxygen Levels:</strong> {{ vital_signs.blood_oxygen_levels }}</p>
+                    <p><strong>Respiratory Rate:</strong> {{ vital_signs.respiratory_rate }}</p>
+                    <p><strong>Blood Pressure:</strong> {{ vital_signs.blood_pressure }}</p>
+                </div>
+    
+                {% endif %}
+                
+                
+                {% elif form.record_type == 'Pediatric' %}
+    
+                <div class="info-container">
+                    <h2 class="form-title">Pediatric Details</h2>
+                    <p><strong>Address:</strong> {{ user_profile.address }}</p>
+                    <p><strong>Sex:</strong> {{ user_profile.sex }}</p>
+                    <p><strong>Age:</strong> {{ user_profile.age }}</p>
+                    <p><strong>Mother's Name:</strong> {{ pediatric_details.mother_name }}</p>
+                    <p><strong>Father's Name:</strong> {{ pediatric_details.father_name }}</p>
+                    <p><strong>Mother's Age:</strong> {{ pediatric_details.mother_age }}</p>
+                    <p><strong>Father's Age:</strong> {{ pediatric_details.father_age }}</p>
+                    <p><strong>Birth Order:</strong> {{ pediatric_details.birth_order }}</p>
+                </div>
+                
+                <div class="info-container">
+                    <h2 class="form-title">Health Identification Numbers</h2>
+                    <p><strong>Philhealth Number:</strong> {{ economic_numbers.philhealth_num }}</p>
+                    <p><strong>NHTS Number:</strong> {{ economic_numbers.nhts_num }}</p>
+                    <p><strong>4Ps Member:</strong> {{ economic_numbers.patient_4ps_member|yes_no }}</p>
+                    <p><strong>Brgy Number:</strong> {{ economic_numbers.brgy_num }}</p>
+                    <p><strong>Family Number:</strong> {{ economic_numbers.family_num }}</p>
+                </div>
+                
+                <div class="info-container">
+                    <h2 class="form-title"> Social History</h2>
+                    <p><strong>Smoker:</strong> {{ social_history.smoker|yes_no }}</p>
+                    <p><strong>Alcohol Intake:</strong> {{ social_history.alcohol_intake|yes_no }}</p>
+                    <p><strong>Prohibited Drug:</strong> {{ social_history.prohibited_drug|yes_no }}</p>
+                    <p><strong>Cigarette Sticks Per Day:</strong> {{ social_history.cigarette_sticks_per_day }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Immunization History</h2>
+                    <p><strong>Tetanus Toxoid Mother Status:</strong> {{ immunization_history.tetanus_toxoid_mother_status }}</p>
+                    <p><strong>BCG:</strong> {{ immunization_history.bcg|yes_no }}</p>
+                    <p><strong>HEPA:</strong> {{ immunization_history.hepa|yes_no }}</p>
+                    <p><strong>Pental 1:</strong> {{ immunization_history.pental_1|yes_no }}</p>
+                    <p><strong>Pental 2:</strong> {{ immunization_history.pental_2|yes_no }}</p>
+                    <p><strong>Pental 3:</strong> {{ immunization_history.pental_3|yes_no }}</p>
+                    <p><strong>OPV 1:</strong> {{ immunization_history.opv_1|yes_no }}</p>
+                    <p><strong>OPV 2:</strong> {{ immunization_history.opv_2|yes_no }}</p>
+                    <p><strong>OPV 3:</strong> {{ immunization_history.opv_3|yes_no }}</p>
+                    <p><strong>Rota 1:</strong> {{ immunization_history.rota_1|yes_no }}</p>
+                    <p><strong>Rota 2:</strong> {{ immunization_history.rota_2|yes_no }}</p>
+                    <p><strong>Rota 3:</strong> {{ immunization_history.rota_3|yes_no }}</p>
+                    <p><strong>AMV:</strong> {{ immunization_history.amv|yes_no }}</p>
+                    <p><strong>MR:</strong> {{ immunization_history.mr|yes_no }}</p>
+                    <p><strong>MMR:</strong> {{ immunization_history.mmr|yes_no }}</p>
+                    <p><strong>Other Immunization:</strong> {{ immunization_history.other_immunization }}</p>
+                    <p><strong>Vitamin A:</strong> {{ immunization_history.vitamin_a |yes_no}}</p>
+                    <p><strong>Breastfeeding:</strong> {{ immunization_history.breastfeeding|yes_no }}</p>
+                    <p><strong>Deworming:</strong> {{ immunization_history.deworming|yes_no }}</p>
+                    <p><strong>Deworm Date:</strong> {{ immunization_history.deworm_date }}</p>
+                </div>
+                
+                <div class="info-container">
+                    <h2 class="form-title">Medical History</h2>
+                    <p><strong>Diabetes:</strong> {{ medical_history.diabetes|yes_no }}</p>
+                    <p><strong>Asthma:</strong> {{ medical_history.asthma|yes_no }}</p>
+                    <p><strong>Hypertension (HPN):</strong> {{ medical_history.hypertension|yes_no }}</p>
+                    <p><strong>Pulmonary Tuberculosis (PTB):</strong> {{ medical_history.pulmonary_tubercolosis|yes_no }}</p>
+                    <p><strong>Cancer:</strong> {{ medical_history.cancer|yes_no }}</p>
+                    <p><strong>Cough:</strong> {{ medical_history.cough_2_weeks|yes_no }}</p>
+                    <p><strong>Other Medical History:</strong> {{ medical_history.other_medical_history }}</p>
+                    <p><strong>Medication Taken:</strong> {{ medical_history.medication_taken }}</p>
+                    <p><strong>Family Planning:</strong> {{ medical_history.family_planning|yes_no }}</p>
+                    <p><strong>Immunization:</strong> {{ medical_history.immunization|yes_no }}</p>
+                    <p><strong>Immunization Date:</strong> {{ medical_history.immunization_date }}</p>
+                </div>
+    
+                {% if form.status == 'Verified' %}
+    
+                <div class="info-container">
+                    <h2 class="form-title">Doctor Order</h2>
+                    <p><strong>Chief Complaint:</strong> {{ doctor_order.chief_complaint }}</p>
+                    <p><strong>Findings:</strong> {{ doctor_order.findings }}</p>
+                    <p><strong>Impression:</strong> {{ doctor_order.impression }}</p>
+                    <p><strong>Management:</strong> {{ doctor_order.management }}</p>
+                    <p><strong>Filled Datetime:</strong> {{ doctor_order.filled_datetime }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Nurse Notes</h2>
+                    <p><strong>Admission Date:</strong> {{ nurse_notes.admission_date }}</p>
+                    <p><strong>Admission Time:</strong> {{ nurse_notes.admission_time }}</p>
+                    <p><strong>Subjective Complaint:</strong> {{ nurse_notes.subjective_complaint }}</p>
+                    <p><strong>Objective Findings:</strong> {{ nurse_notes.objective_findings }}</p>
+                    <p><strong>Implementation:</strong> {{ nurse_notes.implementation }}</p>
+                    <p><strong>Assessment:</strong> {{ nurse_notes.assessment }}</p>
+                    <p><strong>Plan:</strong> {{ nurse_notes.plan }}</p>
+                    <p><strong>Filled Datetime:</strong> {{ nurse_notes.filled_datetime }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Vital Signs</h2>
+                    <p><strong>Weight (kg):</strong> {{ vital_signs.weight_in_kg }}</p>
+                    <p><strong>Height (cm):</strong> {{ vital_signs.height_in_cm }}</p>
+                    <p><strong>Nutritional Status:</strong> {{ vital_signs.nutritional_status }}</p>
+                    <p><strong>BMI:</strong> {{ vital_signs.BMI }}</p>
+                    <p><strong>Body Temperature:</strong> {{ vital_signs.body_temperature }}</p>
+                    <p><strong>Pulse Rate:</strong> {{ vital_signs.pulse_rate }}</p>
+                    <p><strong>Blood Oxygen Levels:</strong> {{ vital_signs.blood_oxygen_levels }}</p>
+                    <p><strong>Respiratory Rate:</strong> {{ vital_signs.respiratory_rate }}</p>
+                    <p><strong>Blood Pressure:</strong> {{ vital_signs.blood_pressure }}</p>
+                </div>
+    
+                {% endif %}
+    
+                {% elif form.record_type == 'Child' %}
+                <div class="info-container">
+                    <h2 class="form-title">Child Details</h2>
+                    <p><strong>Address:</strong> {{ user_profile.address }}</p>
+                    <p><strong>Sex:</strong> {{ user_profile.sex }}</p>
+                    <p><strong>Age:</strong> {{ user_profile.age }}</p>
+                    <p><strong>Place of Birth:</strong> {{ child_details.place_of_birth }}</p>
+                    <p><strong>Birth Weight:</strong> {{ child_details.birth_weight }}</p>
+                    <p><strong>Birth Order:</strong> {{ child_details.birth_order }}</p>
+                    <p><strong>Mother's Name:</strong> {{ child_details.mother_name }}</p>
+                    <p><strong>Birth Length:</strong> {{ child_details.birth_length_in_inches }}</p>
+                    <p><strong>Birth Time:</strong> {{ child_details.birth_time }}</p>
+                    <p><strong>Delivery Type:</strong> {{ child_details.delivery_type }}</p>
+                    <p><strong>Breastfeeding:</strong> {{ child_details.breastfeeding_type }}</p>
+                </div>
+                
+                <div class="info-container">
+                    <h2 class="form-title">Newborn Status</h2>
+                    <p><strong>NS Place:</strong> {{ newborn_status.ns_place }}</p>
+                    <p><strong>NS Date:</strong> {{ newborn_status.ns_date }}</p>
+                    <p><strong>BCG Date:</strong> {{ newborn_status.bcg_date }}</p>
+                    <p><strong>BCG Place:</strong> {{ newborn_status.bcg_place }}</p>
+                    <p><strong>DPT OPV Date:</strong> {{ newborn_status.dpt_opv_date }}</p>
+                    <p><strong>DPT OPV Place:</strong> {{ newborn_status.dpt_opv_place }}</p>
+                    <p><strong>PCV Date:</strong> {{ newborn_status.pcv_date }}</p>
+                    <p><strong>PCV Place:</strong> {{ newborn_status.pcv_place }}</p>
+                    <p><strong>IPV Date:</strong> {{ newborn_status.ipv_date }}</p>
+                    <p><strong>IPV Place:</strong> {{ newborn_status.ipv_place }}</p>
+                    <p><strong>HEPA Date:</strong> {{ newborn_status.hepa_date }}</p>
+                    <p><strong>HEPA Place:</strong> {{ newborn_status.hepa_place }}</p>
+                </div>
+                
+                <div class="info-container">
+                    <h2 class="form-title">Health Identification Numbers</h2>
+                    <p><strong>Philhealth Number:</strong> {{ economic_numbers.philhealth_num }}</p>
+                    <p><strong>NHTS Number:</strong> {{ economic_numbers.nhts_num }}</p>
+                    <p><strong>4Ps Member:</strong> {{ economic_numbers.patient_4ps_member|yes_no }}</p>
+                    <p><strong>Brgy Number:</strong> {{ economic_numbers.brgy_num }}</p>
+                    <p><strong>Family Number:</strong> {{ economic_numbers.family_num }}</p>
+                </div>
+                
+                {% if form.status == 'Verified' %}
+    
+                <div class="info-container">
+                    <h2 class="form-title">Doctor Order</h2>
+                    <p><strong>Chief Complaint:</strong> {{ doctor_order.chief_complaint }}</p>
+                    <p><strong>Findings:</strong> {{ doctor_order.findings }}</p>
+                    <p><strong>Impression:</strong> {{ doctor_order.impression }}</p>
+                    <p><strong>Management:</strong> {{ doctor_order.management }}</p>
+                    <p><strong>Filled Datetime:</strong> {{ doctor_order.filled_datetime }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Nurse Notes</h2>
+                    <p><strong>Admission Date:</strong> {{ nurse_notes.admission_date }}</p>
+                    <p><strong>Admission Time:</strong> {{ nurse_notes.admission_time }}</p>
+                    <p><strong>Subjective Complaint:</strong> {{ nurse_notes.subjective_complaint }}</p>
+                    <p><strong>Objective Findings:</strong> {{ nurse_notes.objective_findings }}</p>
+                    <p><strong>Implementation:</strong> {{ nurse_notes.implementation }}</p>
+                    <p><strong>Assessment:</strong> {{ nurse_notes.assessment }}</p>
+                    <p><strong>Plan:</strong> {{ nurse_notes.plan }}</p>
+                    <p><strong>Filled Datetime:</strong> {{ nurse_notes.filled_datetime }}</p>
+                </div>
+    
+                <div class="info-container">
+                    <h2 class="form-title">Vital Signs</h2>
+                    <p><strong>Weight (kg):</strong> {{ vital_signs.weight_in_kg }}</p>
+                    <p><strong>Height (cm):</strong> {{ vital_signs.height_in_cm }}</p>
+                    <p><strong>Nutritional Status:</strong> {{ vital_signs.nutritional_status }}</p>
+                    <p><strong>BMI:</strong> {{ vital_signs.BMI }}</p>
+                    <p><strong>Body Temperature:</strong> {{ vital_signs.body_temperature }}</p>
+                    <p><strong>Pulse Rate:</strong> {{ vital_signs.pulse_rate }}</p>
+                    <p><strong>Blood Oxygen Levels:</strong> {{ vital_signs.blood_oxygen_levels }}</p>
+                    <p><strong>Respiratory Rate:</strong> {{ vital_signs.respiratory_rate }}</p>
+                    <p><strong>Blood Pressure:</strong> {{ vital_signs.blood_pressure }}</p>
+                </div>
+    
+                {% endif %}
+            {% endif %}
+            </div>
+    
+        </div>
+    
+    </div>
+</div>
+
+<style media="print">
+    .hide-on-pdf {
+        display: none;
+    }
+    /* Global Styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #24344B;
+        font-family: "Poppins", sans-serif;
+        color: #333;
+    }
+
+    .container {
+        max-width: 70%;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff; 
+    }
+
+    .main-title {
+        margin-top: 20px;
+        color: #236FC8;
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+
+    .form-section {
+        margin-top: 20px;
+    }
+
+    .form-section .status {
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        align-items: center;
+        margin: 50px;
+        margin-bottom: 10px;
+    }
+
+    .form-section .details {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 50px;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+
+    .form-section h2.form-title {
+        padding: 14px;
+        text-align: center;
+        color: #236FC8;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .form-section p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .form-section p strong {
+        color: #5a5c69;
+        font-weight: bold;
+    }
+
+    .info-container {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+</style>
+
+        
+    {% endblock %}
+    

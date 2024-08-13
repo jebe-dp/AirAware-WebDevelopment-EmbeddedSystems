@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9f9f9;
+    font-family: "Poppins", sans-serif;
+}
+
+.confirmation-container {
+    background-color: #fff;
+    width: 40%;
+    margin: 20px auto;
+    border-radius: 8px;
+    border: 3px solid #f44336;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.confirmation-container h2 {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.confirmation-container a,
+.confirmation-container button{
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 5px;
+    padding: 10px 15px;
+    border: none;
+    font-weight: bold;
+    color: #ffff;
+    text-decoration: none;
+}
+
+.confirmation-container .btn-activate {
+    background-color: #5bb450;
+}
+
+.confirmation-container .btn-activate:hover {
+    background-color: #276221;
+}
+
+.confirmation-container .btn-suspend {
+    background-color: #f44336;
+}
+
+.confirmation-container .btn-suspend:hover {
+    background-color: #99231d;
+}
+
+.confirmation-container .btn-cancel {
+    background-color: #2196F3;
+}
+
+.confirmation-container .btn-cancel:hover {
+    background-color: #0f59a8;
+}
+
+@media (max-width: 768px) {
+    .confirmation-container {
+        width: 80%;
+    }
+}
+@media (max-width: 580px) {
+    .confirmation-container {
+        padding: 20px; 
+    }
+    .confirmation-container a,
+    .confirmation-container button {
+        margin: 5px;
+        padding: 8px 10px; 
+        font-size: 12px; 
+    }
+
+    .confirmation-container h2 {
+        font-size: 12px;
+    }
+}
+
+

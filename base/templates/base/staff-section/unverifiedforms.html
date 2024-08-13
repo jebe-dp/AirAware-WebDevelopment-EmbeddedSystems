@@ -1,0 +1,38 @@
+{% include 'sections.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/staff/unverified-forms.css' %}">
+
+<div class="form-container">
+    <h2 class="form-title">Unverified Forms</h2>
+
+    <table class="forms-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Form</th>
+                <th>Date Submitted</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in unverified_forms %}
+            <tr class="{% cycle 'odd' 'even' %}">
+                <td>{{ form.user.first_name }} {{ form.user.last_name }}</td>
+                <td>{{ form.title }}</td>
+                <td>{{ form.datetime_created }}</td>
+                <td>
+                    <a href="{% url 'staff_view_form' form_id=form.id %}" class="view-button" target="_blank">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}
+

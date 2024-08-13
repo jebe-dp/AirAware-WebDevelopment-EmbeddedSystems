@@ -1,0 +1,206 @@
+
+
+<div class="hide-on-pdf">
+
+    {% include 'main.html' %}
+
+    {% block content %}
+
+</div>
+
+{% load custom_filters %}
+{% load static %}
+    
+<link rel="stylesheet" href="{% static 'styles/patient/patient_view_form.css' %}">
+
+<div class="container">
+
+    <div class="back">
+        {% include 'back-button.html' %}
+    </div>
+
+    <h1 class="main-title">Patient Medical Record</h1>
+    <div class="hide-on-pdf">
+        
+            {% if request.user.is_staff %}
+    
+            <div class="form-buttons">
+                
+                {% if form.status == 'Unverified' %}
+                    <a href="#" onclick="acceptForm('{{ form.id }}')" class="btn btn-accept"><i class="fa fa-check"></i>Accept</a>
+                    <a href="#" onclick="rejectForm('{{ form.id }}')" class="btn btn-danger"><i class="fa fa-times-circle"></i>Reject</a>
+                {% else %}
+                    <a href="{% url 'staff_generate_pdf' form_id=form.id  %}" class="btn btn-primary"><i class="fa fa-file-pdf"></i>Generate PDF</a>
+                    <a href="{% url 'staff_update_form' form_id=form.id %}" class="btn btn-success"><i class="fas fa-edit"></i>Update</a>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if not request.user.is_staff %}
+    
+            <div class="form-buttons">
+                <a href="{% url 'patient_update_form' form_id=form.id %}" class="btn btn-success"><i class="fas fa-edit"></i></i>Update</a>
+             {% if form.status == 'Verified' %}
+                <a href="{% url 'generate_pdf' form_id=form.id %}" class="btn btn-primary"><i class="fa fa-file-pdf"></i>Generate PDF</a>
+            {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+            <div class="form-section">
+                <div class="status">
+                    <p><strong>First Name:</strong> {{ user_profile.user.first_name }}</p>
+                    <p><strong>Last Name:</strong> {{ user_profile.user.last_name }}</p>
+                    <p><strong>Birth Date:</strong> {{ user_profile.user.birth_date }}</p>
+                    <p><strong>Form Status:</strong> {{ form.status }}</p>
+                    <p><strong>Record Type:</strong> {{ form.title }}</p>
+                </div>
+        
+                <div class="details">
+                    {% if form.record_type == 'Adult' %}
+                        {% include 'view_record/adult_view.html' %} 
+                    {% elif form.record_type == 'Pediatric' %}
+                        {% include 'view_record/pediatric_view.html' %}
+                    {% elif form.record_type == 'Child' %}
+                        {% include 'view_record/child_view.html' %}
+                    {% endif %}
+
+                    {% if form.status == 'Verified' %}
+    
+                    <div class="info-container">
+                        <h2 class="form-title">Doctor Order</h2>
+                        <p><strong>Chief Complaint:</strong> {{ doctor_order.chief_complaint }}</p>
+                        <p><strong>Findings:</strong> {{ doctor_order.findings }}</p>
+                        <p><strong>Impression:</strong> {{ doctor_order.impression }}</p>
+                        <p><strong>Management:</strong> {{ doctor_order.management }}</p>
+                        <p><strong>Filled Datetime:</strong> {{ doctor_order.filled_datetime }}</p>
+                        <p><strong>Present Illness History:</strong> {{ doctor_order.present_illness_history }}</p>
+                        <p><strong>Head:</strong> {{ doctor_order.head }}</p>
+                        <p><strong>Chest:</strong> {{ doctor_order.chest }}</p>
+                        <p><strong>Cardiac:</strong> {{ doctor_order.cardiac }}</p>
+                        <p><strong>Abdominal:</strong> {{ doctor_order.abdominal }}</p>
+                        <p><strong>Extremities:</strong> {{ doctor_order.extremities }}</p>
+                        <p><strong>Other Findings:</strong> {{ doctor_order.other_findings }}</p>
+                    </div>
+        
+                    <div class="info-container">
+                        <h2 class="form-title">Nurse Notes</h2>
+                        <p><strong>Expected Return:</strong> {{ nurse_notes.expected_return }}</p>
+                        <p><strong>Admission Date:</strong> {{ nurse_notes.admission_date }}</p>
+                        <p><strong>Admission Time:</strong> {{ nurse_notes.admission_time }}</p>
+                        <p><strong>Subjective Complaint:</strong> {{ nurse_notes.subjective_complaint }}</p>
+                        <p><strong>Objective Findings:</strong> {{ nurse_notes.objective_findings }}</p>
+                        <p><strong>Implementation:</strong> {{ nurse_notes.implementation }}</p>
+                        <p><strong>Assessment:</strong> {{ nurse_notes.assessment }}</p>
+                        <p><strong>Plan:</strong> {{ nurse_notes.plan }}</p>
+                        <p><strong>Filled Datetime:</strong> {{ nurse_notes.filled_datetime }}</p>
+                    </div>
+        
+                    <div class="info-container">
+                        <h2 class="form-title">Vital Signs</h2>
+                        <p><strong>Weight (kg):</strong> {{ vital_signs.weight_in_kg }}</p>
+                        <p><strong>Height (cm):</strong> {{ vital_signs.height_in_cm }}</p>
+                        <p><strong>Nutritional Status:</strong> {{ vital_signs.nutritional_status }}</p>
+                        <p><strong>BMI:</strong> {{ vital_signs.BMI }}</p>
+                        <p><strong>Body Temperature:</strong> {{ vital_signs.body_temperature }}</p>
+                        <p><strong>Pulse Rate:</strong> {{ vital_signs.pulse_rate }}</p>
+                        <p><strong>Blood Oxygen Levels:</strong> {{ vital_signs.blood_oxygen_levels }}</p>
+                        <p><strong>Respiratory Rate:</strong> {{ vital_signs.respiratory_rate }}</p>
+                        <p><strong>Blood Pressure:</strong> {{ vital_signs.systolic_bp }} / {{ vital_signs.diastolic_bp }}</p>
+                    </div>
+            </div>
+        </div>
+</div>
+    
+                {% endif %}
+
+
+<style media="print">
+    
+    .hide-on-pdf, .back {
+        display: none;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        color: #000;
+        background-color: #ffffff;
+    }
+
+    .container {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .main-title {
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        padding: 10px;
+        color: #236FC8;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .form-section {
+        width: 100%;
+        table-layout: fixed;
+        border-spacing: 20px;
+    }
+
+    .form-section.details {
+        display: table-row;
+    }
+
+    .form-section h2.form-title {
+        margin-top: 15px;
+        border-top: 1px solid #ccc;
+        text-align: center;
+        font-size: 14px; 
+        color: #236FC8;
+    }
+
+    .form-section p {
+        font-size: 12px;
+    }
+
+    .form-section p strong {
+        font-weight: bold;
+    }
+
+    .form-buttons {
+        display: none; 
+    }
+</style>
+
+
+<script>
+    // Function to handle form acceptance
+    function acceptForm(formId) {
+        // Accept the form
+        fetch('{% url "staff_accept_form" form_id=form.id %}')
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display message if needed
+                window.close(); // Close the window after the form is accepted
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function rejectForm(formId) {
+        // Reject the form
+        fetch('{% url "staff_delete_form" form_id=form.id %}')
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display message if needed
+                window.close(); // Close the window after the form is rejected
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+</script>
+
+
+        
+    {% endblock %}
+    

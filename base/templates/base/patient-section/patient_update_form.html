@@ -1,0 +1,196 @@
+{% include 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/patient/patient_update_form.css' %}">
+
+<body>
+
+    <div class="container">
+
+        {% include 'back-button.html' %}
+
+        <div class="title">Edit Patient Form</div>
+    
+    
+        <div class="buttons">
+            {% if request.user.is_staff %}
+            <a href="#" onclick="deleteForm('{{ form.id }}', event)" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a>
+            {% else %}
+            <a href="{% url 'patient_delete_form' form_id=form.id %}" class="btn btn-danger"><i class="fa fa-trash"></i>Delete</a>
+            {% endif %}
+        </div>
+        
+    
+        <div class="main-form">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                
+                {% if form.record_type == 'Adult' %}
+                <div class="info-container">
+                    <div class="form-details">
+                        <h2>Patient Details</h2>
+                        {{ user_profile_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Healthcare Identification Numbers</h2>
+                        {{ economic_numbers_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Medical History</h2>
+                        {{ medical_history_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Social History</h2>
+                        {{ social_history_form.as_p }}
+                    </div>
+                </div>
+
+                {% if request.user.is_staff %}
+                <div class="info-container">
+
+                    <div class="form-details">
+                        <h2>Doctor Order</h2>
+                       {{ doctor_order_form.as_p }}
+                    </div>
+                       
+                    <div class="form-details">
+                        <h2>Nurse Notes</h2>
+                      {{ nurse_notes_form.as_p }}
+                    </div>
+
+                    <div class="form-details">
+                        <h2>Vital Signs</h2>
+                      {{ vital_signs_form.as_p }}
+                     </div>
+                     {% endif %}
+                     
+                </div>
+                    
+                {% elif form.record_type == 'Child' %}
+                <div class="info-container">
+                    <div class="form-details">
+                        <h2>Child Details</h2>
+                        {{ user_profile_form.address.label_tag }}
+                        {{ user_profile_form.address }}
+                        {{ user_profile_form.sex.label_tag }}
+                        {{ user_profile_form.sex }}
+                        {{ child_details_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Newborn Status</h2>
+                        {{ newborn_status_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Health Identification Numbers</h2>
+                        {{ economic_numbers_form.as_p }}
+                    </div>
+
+                    {% if request.user.is_staff %}
+
+                    <div class="form-details">
+                        <h2>Doctor Order</h2>
+                       {{ doctor_order_form.as_p }}
+                    </div>
+                       
+                    <div class="form-details">
+                        <h2>Nurse Notes</h2>
+                      {{ nurse_notes_form.as_p }}
+                    </div>
+
+                    <div class="form-details">
+                        <h2>Vital Signs</h2>
+                      {{ vital_signs_form.as_p }}
+                     </div>
+                     {% endif %}
+                    
+                </div>
+
+                {% elif form.record_type == 'Pediatric' %}
+                <div class="info-container">   
+                    <div class="form-details">
+                        <h2>User Details</h2>
+                        {{ user_profile_form.address.label_tag }}
+                        {{ user_profile_form.address }}
+                        {{ user_profile_form.sex.label_tag }}
+                        {{ user_profile_form.sex }}
+                        {{ user_profile_form.age.label_tag }}
+                        {{ user_profile_form.age }}
+                        {{ pediatric_details_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Healthcare Identification Numbers</h2>
+                        {{ economic_numbers_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Immunization History</h2>
+                        {{ immunization_history_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Medical History</h2>
+                        {{ medical_history_form.as_p }}
+                    </div>
+                    <div class="form-details">
+                        <h2>Social History</h2>
+                        {{ social_history_form.as_p }}
+                    </div>
+
+                    {% if request.user.is_staff %}
+
+                    <div class="form-details">
+                        <h2>Doctor Order</h2>
+                       {{ doctor_order_form.as_p }}
+                    </div>
+                       
+                    <div class="form-details">
+                        <h2>Nurse Notes</h2>
+                      {{ nurse_notes_form.as_p }}
+                    </div>
+
+                    <div class="form-details">
+                        <h2>Vital Signs</h2>
+                      {{ vital_signs_form.as_p }}
+                     </div>
+                     {% endif %}
+                    
+
+                </div>
+                {% endif %}
+
+                <div class="submit-button">
+                    <button type="submit">Submit</button>
+                </div>
+
+                
+            </form>
+        
+        </div>
+
+    </div>
+
+</body>
+
+
+<!-- Add this JavaScript code within your HTML template -->
+<script>
+    // Function to handle form deletion
+    function deleteForm(formId, event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Delete the form
+        fetch('{% url "staff_delete_form" form_id=form.id %}')
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Display message if needed
+                window.close(); // Close the window after the form is deleted
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+
+{% endblock content %}

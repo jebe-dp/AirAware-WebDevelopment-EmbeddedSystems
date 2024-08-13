@@ -1,0 +1,285 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% load static %}
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/staff/social_analysis.css' %}">
+
+</head>
+<body>
+
+    <div class="container">
+        <div class="chart-container">
+            <h2>Diabetes Analysis by Gender</h2>
+            <canvas id="diabetesGenderChart" width="200" height="100"></canvas>
+            <div class="gender-legend">
+                <div class="male-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(75, 192, 192, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Male</span>
+                </div>
+                <div class="female-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(255, 99, 132, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Female</span>
+                </div>
+            </div>
+            <div class="analysis-desc">
+                <p>Highest: {{ diabetes_g_highest.0 }} ({{ diabetes_g_highest.1 }})</p>
+                <p>Lowest: {{ diabetes_g_lowest.0 }} ({{ diabetes_g_lowest.1 }})</p>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2>Diabetes Analysis by Age Group</h2>
+            <canvas id="diabetesAgeGroupChart" width="200" height="100"></canvas>
+            <div class="analysis-desc">
+                <p>Highest: {{ diabetes_highest.0 }} ({{ diabetes_highest.1 }})</p>
+                <p>Lowest: {{ diabetes_lowest.0 }} ({{ diabetes_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Asthma Analysis by Gender</h2>
+            <canvas id="asthmaGenderChart" width="200" height="100"></canvas>
+            <div class="gender-legend">
+                <div class="male-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(75, 192, 192, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Male</span>
+                </div>
+                <div class="female-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(255, 99, 132, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Female</span>
+                </div>
+            </div>
+            <div class="analysis-desc">
+                <p>Highest: {{ asthma_g_highest.0 }} ({{ asthma_g_highest.1 }})</p>
+                <p>Lowest: {{ asthma_g_lowest.0 }} ({{ asthma_g_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Asthma Analysis by Age Group</h2>
+            <canvas id="asthmaAgeGroupChart" width="200" height="100"></canvas>
+            <div class="analysis-desc">
+                <p>Highest: Ages {{ asthma_highest.0 }} ({{ asthma_highest.1 }})</p>
+                <p>Lowest: Ages {{ asthma_lowest.0 }} ({{ asthma_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Hypertension Analysis by Gender</h2>
+            <canvas id="hypertensionGenderChart" width="200" height="100"></canvas>
+            <div class="gender-legend">
+                <div class="male-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(75, 192, 192, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Male</span>
+                </div>
+                <div class="female-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(255, 99, 132, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Female</span>
+                </div>
+            </div>
+            <div class="analysis-desc">
+                <p>Highest: {{ hypertension_g_highest.0 }} ({{ hypertension_g_highest.1 }})</p>
+                <p>Lowest: {{ hypertension_g_lowest.0 }} ({{ hypertension_g_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Hypertension Analysis by Age Group</h2>
+            <canvas id="hypertensionAgeGroupChart" width="200" height="100"></canvas>
+            <div class="analysis-desc">
+                <p>Highest: {{ hypertension_highest.0 }} ({{ hypertension_highest.1 }})</p>
+                <p>Lowest: {{ hypertension_lowest.0 }} ({{ hypertension_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Pulmonary Tuberculosis Analysis by Gender</h2>
+            <canvas id="pulmonaryTuberculosisGenderChart" width="200" height="100"></canvas>
+            <div class="gender-legend">
+                <div class="male-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(75, 192, 192, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Male</span>
+                </div>
+                <div class="female-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(255, 99, 132, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Female</span>
+                </div>
+            </div>
+            <div class="analysis-desc">
+                <p>Highest: {{ pulmonary_tuberculosis_g_highest.0 }} ({{ pulmonary_tuberculosis_g_highest.1 }})</p>
+                <p>Lowest: {{ pulmonary_tuberculosis_g_lowest.0 }} ({{ pulmonary_tuberculosis_g_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Pulmonary Tuberculosis Analysis by Age Group</h2>
+            <canvas id="pulmonaryTuberculosisAgeGroupChart" width="200" height="100"></canvas>
+            <div class="analysis-desc">
+                <p>Highest: Ages {{ pulmonary_tuberculosis_highest.0 }} ({{ pulmonary_tuberculosis_highest.1 }})</p>
+                <p>Lowest: Ages {{ pulmonary_tuberculosis_lowest.0 }} ({{ pulmonary_tuberculosis_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Cancer Analysis by Gender</h2>
+            <canvas id="cancerGenderChart" width="200" height="100"></canvas>
+            <div class="gender-legend">
+                <div class="male-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(75, 192, 192, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Male</span>
+                </div>
+                <div class="female-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(255, 99, 132, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Female</span>
+                </div>
+            </div>
+            <div class="analysis-desc">
+                <p>Highest: {{ cancer_g_highest.0 }} ({{ cancer_g_highest.1 }})</p>
+                <p>Lowest: {{ cancer_g_lowest.0 }} ({{ cancer_g_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Cancer Analysis by Age Group</h2>
+            <canvas id="cancerAgeGroupChart" width="200" height="100"></canvas>
+            <div class="analysis-desc">
+                <p>Highest: Ages {{ cancer_highest.0 }} ({{ cancer_highest.1 }})</p>
+                <p>Lowest: Ages {{ cancer_lowest.0 }} ({{ cancer_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Cough (2 Weeks) Analysis by Gender</h2>
+            <canvas id="cough2WeeksGenderChart" width="200" height="100"></canvas>
+            <div class="gender-legend">
+                <div class="male-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(75, 192, 192, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Male</span>
+                </div>
+                <div class="female-legend">
+                    <div style="width: 20px; height: 20px; background-color: rgba(255, 99, 132, 0.8); display: inline-block;"></div>
+                    <span style="color: #236FC8;">Female</span>
+                </div>
+            </div>
+            <div class="analysis-desc">
+                <p>Highest: {{ cough_2_weeks_g_highest.0 }} ({{ cough_2_weeks_g_highest.1 }})</p>
+                <p>Lowest: {{ cough_2_weeks_g_lowest.0 }} ({{ cough_2_weeks_g_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+        <div class="chart-container">
+            <h2>Cough (2 Weeks) Analysis by Age Group</h2>
+            <canvas id="cough2WeeksAgeGroupChart" width="200" height="100"></canvas>
+            <div class="analysis-desc">
+                <p>Highest: Ages {{ cough_2_weeks_highest.0 }} ({{ cough_2_weeks_highest.1 }})</p>
+                <p>Lowest: Ages {{ cough_2_weeks_lowest.0 }} ({{ cough_2_weeks_lowest.1 }})</p>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <script>
+        var diabetesAgeGroupData = JSON.parse('{{ diabetes_age_groups|escapejs }}');
+        var diabetesGenderData = JSON.parse('{{ diabetes_gender|escapejs }}');
+        var asthmaAgeGroupData = JSON.parse('{{ asthma_age_groups|escapejs }}');
+        var asthmaGenderData = JSON.parse('{{ asthma_gender|escapejs }}');
+        var hypertensionAgeGroupData = JSON.parse('{{ hypertension_age_groups|escapejs }}');
+        var hypertensionGenderData = JSON.parse('{{ hypertension_gender|escapejs }}');
+        var pulmonaryTuberculosisAgeGroupData = JSON.parse('{{ pulmonary_tuberculosis_age_groups|escapejs }}');
+        var pulmonaryTuberculosisGenderData = JSON.parse('{{ pulmonary_tuberculosis_gender|escapejs }}');
+        var cancerAgeGroupData = JSON.parse('{{ cancer_age_groups|escapejs }}');
+        var cancerGenderData = JSON.parse('{{ cancer_gender|escapejs }}');
+        var cough2WeeksAgeGroupData = JSON.parse('{{ cough_2_weeks_age_groups|escapejs }}');
+        var cough2WeeksGenderData = JSON.parse('{{ cough_2_weeks_gender|escapejs }}');
+
+        function createLineChart(canvasId, data, color) {
+            var ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Number of Patients',
+                        data: Object.values(data),
+                        backgroundColor: color,
+                        borderColor: 'rgba(0, 100, 0, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createBarChart(canvasId, data, barColors) {
+            var ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Number of Patients',
+                        data: Object.values(data),
+                        backgroundColor: barColors,
+                        borderColor: barColors.map(color => color.replace('0.8', '1')), 
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+        
+        createBarChart('diabetesGenderChart', diabetesGenderData, ['rgba(75, 192, 192, 0.9)', 'rgba(255, 99, 132, 0.9)']);
+        createLineChart('diabetesAgeGroupChart', diabetesAgeGroupData, 'rgba(52, 168, 83, 0.9)');
+        createBarChart('asthmaGenderChart', asthmaGenderData, ['rgba(75, 192, 192, 0.9)', 'rgba(255, 99, 132, 0.9)']);
+        createLineChart('asthmaAgeGroupChart', asthmaAgeGroupData, 'rgba(52, 168, 83, 0.9)');
+        createBarChart('hypertensionGenderChart', hypertensionGenderData, ['rgba(75, 192, 192, 0.9)', 'rgba(255, 99, 132, 0.9)']);
+        createLineChart('hypertensionAgeGroupChart', hypertensionAgeGroupData, 'rgba(52, 168, 83, 0.9)');
+        createBarChart('pulmonaryTuberculosisGenderChart', pulmonaryTuberculosisGenderData, ['rgba(75, 192, 192, 0.9)', 'rgba(255, 99, 132, 0.9)']);
+        createLineChart('pulmonaryTuberculosisAgeGroupChart', pulmonaryTuberculosisAgeGroupData, 'rgba(52, 168, 83, 0.9)');
+        createBarChart('cancerGenderChart', cancerGenderData, ['rgba(75, 192, 192, 0.9)', 'rgba(255, 99, 132, 0.9)']);
+        createLineChart('cancerAgeGroupChart', cancerAgeGroupData, 'rgba(52, 168, 83, 0.9)');
+        createBarChart('cough2WeeksGenderChart', cough2WeeksGenderData, ['rgba(75, 192, 192, 0.9)', 'rgba(255, 99, 132, 0.9)']);
+        createLineChart('cough2WeeksAgeGroupChart', cough2WeeksAgeGroupData, 'rgba(52, 168, 83, 0.9)');
+        
+
+    </script>
+</body>
+</html>
+
+{% endblock content %}

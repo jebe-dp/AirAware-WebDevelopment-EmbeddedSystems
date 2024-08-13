@@ -1,0 +1,41 @@
+{% load custom_filters %}
+
+<div class="info-container">
+    <h2 class="form-title">Child Details</h2>
+    <p><strong>Address:</strong> {{ user_profile.address }}</p>
+    <p><strong>Sex:</strong> {{ user_profile.sex }}</p>
+    <p><strong>Age:</strong> {{ user_profile.age }}</p>
+    <p><strong>Place of Birth:</strong> {{ child_details.place_of_birth }}</p>
+    <p><strong>Birth Weight:</strong> {{ child_details.birth_weight }}</p>
+    <p><strong>Birth Order:</strong> {{ child_details.birth_order }}</p>
+    <p><strong>Mother's Name:</strong> {{ child_details.mother_name }}</p>
+    <p><strong>Birth Length:</strong> {{ child_details.birth_length_in_inches }}</p>
+    <p><strong>Birth Time:</strong> {{ child_details.birth_time }}</p>
+    <p><strong>Delivery Type:</strong> {{ child_details.delivery_type }}</p>
+    <p><strong>Breastfeeding:</strong> {{ child_details.breastfeeding_type }}</p>
+</div>
+
+<div class="info-container">
+    <h2 class="form-title">Newborn Status</h2>
+    <p><strong>NS Place:</strong> {{ newborn_status.ns_place }}</p>
+    <p><strong>NS Date:</strong> {{ newborn_status.ns_date }}</p>
+    <p><strong>BCG Date:</strong> {{ newborn_status.bcg_date }}</p>
+    <p><strong>BCG Place:</strong> {{ newborn_status.bcg_place }}</p>
+    <p><strong>DPT OPV Date:</strong> {{ newborn_status.dpt_opv_date }}</p>
+    <p><strong>DPT OPV Place:</strong> {{ newborn_status.dpt_opv_place }}</p>
+    <p><strong>PCV Date:</strong> {{ newborn_status.pcv_date }}</p>
+    <p><strong>PCV Place:</strong> {{ newborn_status.pcv_place }}</p>
+    <p><strong>IPV Date:</strong> {{ newborn_status.ipv_date }}</p>
+    <p><strong>IPV Place:</strong> {{ newborn_status.ipv_place }}</p>
+    <p><strong>HEPA Date:</strong> {{ newborn_status.hepa_date }}</p>
+    <p><strong>HEPA Place:</strong> {{ newborn_status.hepa_place }}</p>
+</div>
+
+<div class="info-container">
+    <h2 class="form-title">Health Identification Numbers</h2>
+    <p><strong>Philhealth Number:</strong> {{ economic_numbers.philhealth_num }}</p>
+    <p><strong>NHTS Number:</strong> {{ economic_numbers.nhts_num }}</p>
+    <p><strong>4Ps Member:</strong> {{ economic_numbers.patient_4ps_member|yes_no }}</p>
+    <p><strong>Brgy Number:</strong> {{ economic_numbers.brgy_num }}</p>
+    <p><strong>Family Number:</strong> {{ economic_numbers.family_num }}</p>
+</div>

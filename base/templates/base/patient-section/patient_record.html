@@ -1,0 +1,58 @@
+{% include 'sections.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet"  href="{% static 'styles/patient/patient_record.css' %}">
+<script type="text/javascript" src="{% static 'js/patient/patient_record.js' %}"></script> 
+
+<body>
+    <div class="record-container">
+
+        <h2 class="records-title">My Records</h2>
+
+            <div class="add-record">
+                <a href="{% url 'data_privacy' %}" >
+                    <i class="fa fa-plus"></i>
+                    Add <span>Record</span>
+                </a>
+            </div>
+
+            <div class="records-container">
+                <div id="patientsTable"></div>
+                
+                <table class="records-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Form Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for form in forms %}
+                        <tr>
+                            <td>{{ form.id }}</td>
+                            <td>{{ form.title }}</td>
+                            <td>{{ form.datetime_created }}</td>
+                            <td>{{ form.status }}</td>
+                            <td><a href="{% url 'patient_view_form' form_id=form.id %}"><button class="view-button">View</button></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+            </div>
+    </div>
+
+    
+
+</body>
+
+
+
+
+{% endblock %}

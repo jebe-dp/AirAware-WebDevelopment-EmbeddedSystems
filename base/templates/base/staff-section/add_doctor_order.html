@@ -1,0 +1,140 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/staff/add_doctor_order.css' %}">
+
+
+<div class="main-container">
+    <div class="container">
+        <div class="patient-info">
+            <h2>Patient Name: <span>{{ patient_name }}</span></h2>
+        </div>
+    
+        <div class="user-details">
+            {% if nurse_notes %}
+            <div class="column nurse-notes">
+                <h3>Nurse Notes</h3>
+                <p><strong>Admission Date:</strong> {{ nurse_notes.admission_date }}</p>
+                <p><strong>Subjective Complaint:</strong> {{ nurse_notes.subjective_complaint }}</p>
+                <p><strong>Objective Findings:</strong> {{ nurse_notes.objective_findings }}</p>
+                <p><strong>Implementation:</strong> {{ nurse_notes.implementation }}</p>
+                <p><strong>Assessment:</strong> {{ nurse_notes.assessment }}</p>
+                <p><strong>Plan:</strong> {{ nurse_notes.plan }}</p>
+            </div>
+            {% else %}
+            <div class="column nurse-notes">
+                <p>No nurse notes available.</p>
+            </div>
+            {% endif %}
+    
+            {% if vital_signs %}
+            <div class="column vital-signs">
+                <h3>Vital Signs</h3>
+                <p><strong>Weight (kg):</strong> {{ vital_signs.weight_in_kg }}</p>
+                <p><strong>Height (cm):</strong> {{ vital_signs.height_in_cm }}</p>
+                <p><strong>BMI:</strong> {{ vital_signs.BMI }}</p>
+                <p><strong>Body Temperature (°C):</strong> {{ vital_signs.body_temperature }}</p>
+                <p><strong>Pulse Rate:</strong> {{ vital_signs.pulse_rate }}</p>
+                <p><strong>Blood Oxygen Levels (%):</strong> {{ vital_signs.blood_oxygen_levels }}</p>
+                <p><strong>Respiratory Rate:</strong> {{ vital_signs.respiratory_rate }}</p>
+                <p><strong>Blood Pressure:</strong> {{ vital_signs.blood_pressure }}</p>
+            </div>
+            {% else %}
+            <div class="column vital-signs">
+                <p>No vital signs available.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="title">DOCTOR'S ORDER FORM</div>
+        <form method="POST" id="doctor-order-form">
+            <div class="user-details">
+                {% csrf_token %}
+                
+                <div class="field">
+                    {{ doctor_order_form.user.label_tag }}
+                    {{ doctor_order_form.user }}
+                </div>
+                <div class="field">
+                    {{ doctor_order_form.chief_complaint.label_tag }}
+                    {{ doctor_order_form.chief_complaint }}
+                </div>
+                <div class="field">
+                    {{ doctor_order_form.present_illness_history.label_tag }}
+                    {{ doctor_order_form.present_illness_history }}
+                </div>
+                
+                <div class="body-systems">
+                    <h3>Body Systems Findings</h3>
+                    <div class="fields">
+                        <div class="field">
+                            {{ doctor_order_form.head.label_tag }}
+                            {{ doctor_order_form.head }}
+                        </div>
+                        <div class="field">
+                            {{ doctor_order_form.chest.label_tag }}
+                            {{ doctor_order_form.chest }}
+                        </div>
+                        <div class="field">
+                            {{ doctor_order_form.cardiac.label_tag }}
+                            {{ doctor_order_form.cardiac }}
+                        </div>
+                        <div class="field">
+                            {{ doctor_order_form.abdominal.label_tag }}
+                            {{ doctor_order_form.abdominal }}
+                        </div>
+                        <div class="field">
+                            {{ doctor_order_form.extremities.label_tag }}
+                            {{ doctor_order_form.extremities }}
+                        </div>
+                        <div class="field">
+                            {{ doctor_order_form.other_findings.label_tag }}
+                            {{ doctor_order_form.other_findings }}
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    {{ doctor_order_form.impression.label_tag }}
+                    {{ doctor_order_form.impression }}
+                </div>
+                <div class="field">
+                    {{ doctor_order_form.management.label_tag }}
+                    {{ doctor_order_form.management }}
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+
+    <script>
+        document.getElementById('doctor-order-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                window.close();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+{% endblock content %}

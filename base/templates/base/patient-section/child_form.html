@@ -1,0 +1,47 @@
+{% include 'main.html' %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/patient/child_form.css' %}">
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script> 
+
+<body>
+    <div class="container">
+        {% include 'back-button.html' %}
+        <div class="title">CHILD PATIENT FORM</div>
+        <form method="POST">
+            <div class="user-details">
+                {% csrf_token %}
+    
+                {% csrf_token %}
+                <div class="input-box">
+
+                    <div class="child_details">
+                        <h3>NEWBORN DETAILS</h3>
+                        {{ user_profile_form.location.label_tag }}
+                        {{ user_profile_form.location }}
+                        {{ user_profile_form.address.label_tag }}
+                        {{ user_profile_form.address }}
+                        {{ user_profile_form.sex.label_tag }}
+                        {{ user_profile_form.sex }}
+                        {{ child_details_form.as_p }}
+                    </div>
+                    <div class="newborn_status">
+                        <h3>NEWBORN STATUS</h3>
+                        {{ newborn_status_form.as_p }}
+                    </div>
+                    <div class="economic_numbers">
+                        <h3>HEALTH IDENTIFICATION</h3>
+                        {{ economic_numbers_form.as_p }}
+                    </div>
+                </div>
+            </div>
+                <div class="button">
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock content %}

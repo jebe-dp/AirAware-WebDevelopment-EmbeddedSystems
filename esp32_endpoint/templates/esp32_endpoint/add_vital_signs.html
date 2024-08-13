@@ -1,0 +1,470 @@
+{% extends 'main.html' %}
+
+{% block title%} Add Vital Signs {% endblock %}
+
+{% block content %}
+
+{% load static %}
+    
+    <link rel="stylesheet"  href="{% static 'styles/patient/add_vital_signs.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/chart.js' %}"></script>
+
+  <body>
+    <h1 class="title">Add Vital Signs</h1>
+
+    <div class="container">
+      <form id="authorization-form" method="POST" action="">
+          {% csrf_token %}
+            <div class="button-container">
+              <input
+                type="button"
+                value="Get Code for Temperature"
+                data-sensor="mlx"
+                class="request-auth-btn"
+              />
+              <div class="auth-container auth-mlx hidden">
+                  <input
+                    type="text"
+                    class="auth-code-mlx"
+                    placeholder="Authorization Code"
+                  />
+                  <input
+                    type="button"
+                    value="Submit Code"
+                    data-sensor="mlx"
+                    class="submit-auth-btn"
+                  />
+              </div>
+              <div class="input-field">
+                  <label for="temperature">Temperature:</label>
+                  <input
+                    type="number"
+                    name="temperature"
+                    id="temperature"
+                    placeholder="Temperature"
+                  />
+              </div>
+          </div>
+          <div class="button-container">
+              <input
+                type="button"
+                value="Get Code for PR and SPO2"
+                data-sensor="max"
+                class="request-auth-btn"
+              />
+              <div class="auth-container auth-max hidden" >
+                  <input
+                    type="text"
+                    class="auth-code-max"
+                    placeholder="Authorization Code"
+                  />
+                  <input
+                    type="button"
+                    value="Submit Code"
+                    data-sensor="max"
+                    class="submit-auth-btn"
+                  />
+              </div>
+              <div class="input-field">
+                  <label for="pulse-rate">Pulse Rate:</label>
+                  <input
+                    type="number"
+                    name="pulse_rate"
+                    id="pulse-rate"
+                    placeholder="Pulse Rate"
+                  />
+              </div>
+              <div class="input-field">
+                  <label for="spo2">SPO2:</label>
+                  <input
+                    type="number"
+                    name="spo2"
+                    id="spo2"
+                    placeholder="SPO2"
+                  />
+              </div>
+              
+
+          </div>
+
+          <div class="button-container">
+            <div class="input-field">
+              <label for="respiratory_rate">Respiratory Rate:</label>
+              <input
+                type="number"
+                name="respiratory_rate"
+                id="respiratory_rate"
+                placeholder="Respiratory Rate"
+              />
+          </div>
+          </div>
+          
+          <div class="button-container bp">
+            <div class="input-field">
+              <label for="blood-pressure">Blood Pressure</label>
+              <input
+                type="number"
+                name="systolic_bp"
+                id="systolic_bp"
+                placeholder="Systolic"
+              />
+
+              <span>/</span>
+              <input
+                type="number"
+                name="diastolic_bp"
+                id="diastolic_bp"
+                placeholder="Diastolic"
+              />
+          </div>
+          </div>
+
+          
+
+          <div id="response-message"></div>
+
+          
+
+          <div class="submit-btn">
+            <input type="submit" value="Add Vital Signs" id="add-vital-signs-btn" />
+          </div>
+
+  
+      </form>
+      
+  </div>
+
+  <div id="content-container">
+    <div id="navbar">
+      <ul>
+          <li><a href="#" onclick="openTab('table')">Table</a></li>
+          <li><a href="#" onclick="openTab('graphs')">Graphs</a></li>
+      </ul>
+  </div>
+    <div id="table" class="tabcontent" style="display: block;">
+        <table>
+            <thead>
+                <tr>
+                  <th>Temperature</th>
+                  <th>Pulse Rate</th>
+                  <th>Blood Oxygen</th>
+                  <th>Respiratory Rate</th>
+                  <th>Blood Pressure</th>
+                  <th>Date Recorded</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for vital_sign in vital_signs %}
+                <tr>
+                  <td>{{ vital_sign.temperature }}</td>
+                  <td>{{ vital_sign.pulse_rate }}</td>
+                  <td>{{ vital_sign.spo2 }}</td>
+                  <td>{{ vital_sign.respiratory_rate }}</td>
+                  <td>{{ vital_sign.systolic_bp }} / {{ vital_sign.diastolic_bp }}</td>
+                  <td>{{ vital_sign.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="graphs" class="tabcontent">
+      <h2>Vital Signs Graphs</h2>
+      <div class="charts-container">
+          <div class="chart-card">
+              <h3>Temperature</h3>
+              <div id="TempChartContainer" class="chart-container">
+                  <canvas id="TempChart"></canvas>
+              </div>
+          </div>
+          <div class="chart-card">
+              <h3>Pulse Rate</h3>
+              <div id="pulseRateChartContainer" class="chart-container">
+                  <canvas id="pulseRateChart"></canvas>
+              </div>
+          </div>
+          <div class="chart-card">
+              <h3>SPO2</h3>
+              <div id="spo2ChartContainer" class="chart-container">
+                  <canvas id="spo2Chart"></canvas>
+              </div>
+          </div>
+          <div class="chart-card">
+            <h3>Respiratory Rate</h3>
+            <div id="RespRateChartContainer" class="chart-container">
+                <canvas id="RespRateChart"></canvas>
+            </div>
+        </div>
+      </div>
+  </div>
+  
+</div>
+
+<script>
+  function openTab(tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    document.getElementById(tabName).style.display = "block";
+
+     tablinks = document.getElementsByTagName("a");
+     for (i = 0; i < tablinks.length; i++) {
+         tablinks[i].classList.remove("active");
+     }
+
+     event.currentTarget.classList.add("active");
+}
+
+  $(document).ready(function () {
+    var timeoutHandle;
+
+    function disableRequestAuthButtons() {
+      console.log("Disabling request-auth buttons");
+      $(".request-auth-btn").addClass("disabled");
+    }
+
+    function enableRequestAuthButtonsAfterTimeout(timeout) {
+      console.log("Setting timeout to re-enable buttons: " + timeout);
+      clearTimeout(timeoutHandle); // Clear any existing timeout
+      timeoutHandle = setTimeout(function () {
+        console.log("Re-enabling request-auth buttons after timeout");
+        $(".request-auth-btn").removeClass("disabled");
+        document.querySelector('.auth-max').classList.add('hidden');
+        document.querySelector('.auth-mlx').classList.add('hidden');
+      }, timeout);
+    }
+
+    function submitAuth(sensorType, authCode) {
+      console.log(
+        "Submitting auth request for sensor: " +
+          sensorType +
+          " with auth code: " +
+          authCode
+      );
+      $.ajax({
+        type: "POST",
+        url: "{% url 'handle_auth_request' %}",
+        data: {
+          csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+          sensor_type: sensorType,
+          authorization_code: authCode,
+          submit_auth: true,
+        },
+        success: function (response) {
+          console.log("Submit Auth response: ", response);
+          if (response.status === "success") {
+            var timeLeft = response.time_left;
+            console.log(
+              "Authorization successful, setting new timeout: " + timeLeft
+            );
+
+            if (sensorType === "max") {
+              document.querySelector('.auth-max').classList.add('hidden');
+              var pulseRate = Math.round(parseFloat(response.pulse_rate));
+              if (!isNaN(pulseRate)) {
+                $("#pulse-rate").val(pulseRate);
+                console.log(
+                  "Pulse Rate: " + pulseRate + ", SPO2: " + response.spo2
+                );
+              }
+              var spo2 = Math.round(parseFloat(response.spo2));
+              if (!isNaN(spo2)) {
+                $("#spo2").val(spo2);
+              }
+            } else if (sensorType === "mlx") {
+              document.querySelector('.auth-mlx').classList.add('hidden');
+              var skinTemp = parseFloat(response.skin_temp);
+              if (!isNaN(skinTemp)) {
+                $("#temperature").val(skinTemp.toFixed(2));
+                console.log("My Temperature: " + skinTemp.toFixed(2));
+              }
+            }
+
+            enableRequestAuthButtonsAfterTimeout(timeLeft);
+
+            // Resubmit auth request if timeout is not expired
+            if (timeLeft > 0) {
+              setTimeout(function () {
+                submitAuth(sensorType, authCode);
+              }, 1000); // Repeat every 5 seconds
+            }
+          }
+        },
+      });
+    }
+
+    $(".request-auth-btn").click(function () {
+      var sensorType = $(this).data("sensor");
+      console.log("Request Auth button clicked for sensor: " + sensorType);
+      $.ajax({
+        type: "POST",
+        url: "{% url 'handle_auth_request' %}",
+        data: {
+          csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val(),
+          sensor_type: sensorType,
+          request_auth: true,
+        },
+        success: function (response) {
+          if (response.response_message){
+            alert(response.response_message);
+          }
+          
+          console.log("Request Auth response: ", response);
+          if (response.status === "success") {
+            var timeLeft = response.time_left;
+            disableRequestAuthButtons();
+            // Display the appropriate auth container based on the sensor type
+            if (sensorType === 'max') {
+              document.querySelector('.auth-max').classList.remove('hidden');
+              console.log("Showing auth-max fields");
+            } else if (sensorType === 'mlx') {
+                document.querySelector('.auth-mlx').classList.remove('hidden');
+                console.log("Showing auth-mlx fields");
+            }
+
+            enableRequestAuthButtonsAfterTimeout(timeLeft);
+          }
+        },
+      });
+    });
+
+    $(".submit-auth-btn").click(function () {
+      var sensorType = $(this).data("sensor");
+      var authCode =
+        sensorType === "max"
+          ? $(".auth-code-max").val()
+          : $(".auth-code-mlx").val();
+      console.log(
+        "Submit Auth button clicked for sensor: " +
+          sensorType +
+          " with auth code: " +
+          authCode
+      );
+
+      // Store the last auth code and sensor type
+      $("#last-auth-code").val(authCode);
+      $("#last-sensor-type").val(sensorType);
+
+      submitAuth(sensorType, authCode);
+    });
+
+    $("#add-vital-signs-btn").click(function () {
+      $("#authorization-form").submit();
+    });
+
+    // Handle Enter key for auth-code inputs
+    $('.auth-code-max, .auth-code-mlx').keydown(function (e) {
+      if (e.keyCode === 13) { // Enter key
+        e.preventDefault();
+        var sensorType = $(this).hasClass('auth-code-max') ? 'max' : 'mlx';
+        var authCode = $(this).val();
+        submitAuth(sensorType, authCode);
+      }
+    });
+
+    // Handle Enter key for vital signs inputs
+    $('#authorization-form input').keydown(function (e) {
+      if (e.keyCode === 13) { // Enter key
+        e.preventDefault();
+        if ($(this).hasClass('auth-code-max') || $(this).hasClass('auth-code-mlx')) {
+          return; // Do nothing for auth-code inputs as they are handled separately
+        }
+        $("#authorization-form").submit();
+      }
+    });
+
+  
+        const vitalSigns = JSON.parse('{{ vital_signs_data|escapejs }}');
+        const sortedVitalSigns = vitalSigns.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+        const labels = sortedVitalSigns.map(vs => new Date(vs.created_at).toLocaleString());
+        const pulseRates = sortedVitalSigns.map(vs => vs.pulse_rate);
+        const spo2s = sortedVitalSigns.map(vs => vs.spo2);
+        const temperatures = sortedVitalSigns.map(vs => vs.temperature);
+        const respiratoryRates = sortedVitalSigns.map(vs => vs.respiratory_rate);
+
+        // Find the minimum data for each vital sign
+        const minPulseRate = 60;
+        const minSpo2 = 90;
+        const minSkinTemp = 35;
+
+        // Function to create a chart
+        function createChart(ctx, label, data, color, minBaseline) {
+            const barWidth = 1000; // Adjust bar width as needed
+
+            // Set canvas width based on number of data points and bar width
+            ctx.canvas.width = data.length * barWidth;
+
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels.map(date => new Date(date).toLocaleString('en-US', { month: 'short', day: 'numeric' })),
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        backgroundColor: color, // Specify custom color here
+                        borderColor: color,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 10 // Adjust font size for x-axis ticks
+                                }
+                            }
+                        },
+                        y: {
+                            beginAtZero: false, // Start the y-axis at the minimum baseline
+                            suggestedMin: minBaseline // Set the minimum baseline
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    var label = context.dataset.label || '';
+
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y;
+                                    }
+
+                                    return label;
+                                },
+                                title: function(context) {
+                                    return new Date(labels[context[0].dataIndex]).toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+         // Create the charts
+    const tempChartCtx = document.getElementById('TempChart').getContext('2d');
+    createChart(tempChartCtx, 'Temperature', temperatures, 'rgba(255, 206, 86, 0.6)', 35);
+
+    const respRateChartCtx = document.getElementById('RespRateChart').getContext('2d');
+    createChart(respRateChartCtx, 'Respiratory Rate', respiratoryRates, 'rgba(75, 192, 192, 0.6)', 12);
+
+    const pulseRateChartCtx = document.getElementById('pulseRateChart').getContext('2d');
+    createChart(pulseRateChartCtx, 'Pulse Rate', pulseRates, 'rgba(255, 99, 132, 0.6)', 60);
+
+    const spo2ChartCtx = document.getElementById('spo2Chart').getContext('2d');
+    createChart(spo2ChartCtx, 'SPO2', spo2s, 'rgba(54, 162, 235, 0.6)', 90);
+});
+    </script>
+  </body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,264 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+}
+
+.dash-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 15px - 78px);
+    background-color: #f9f9f9;
+    max-width: 100%; 
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.dashboard {
+    text-align: center;
+    color: #236FC8;
+    margin-top: 10px;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.analysis-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.analysis-container a {
+    padding: 8px 28px;
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+.analysis-container .view-social {
+    background-color: #4b8c53;
+}
+
+.analysis-container .view-social:hover {
+    background-color: #276221;
+}
+
+.analysis-container .view-medical {
+    background-color: #236FC8;
+}
+
+.analysis-container .view-medical:hover {
+    background-color: #1A4F99;
+}
+
+.analysis-container .view-demo {
+    background-color: #adab31;
+}
+
+.analysis-container .view-demo:hover {
+    background-color: #276221;
+}
+
+.analysis-container .view-users {
+    background-color: #c41921;
+}
+
+.analysis-container .view-users:hover {
+    background-color: #7a0c0c;
+}
+
+
+
+.cards-container {
+    margin-left: 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 6px;
+}
+
+.card {
+    background-color: #ffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    height: 120px;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.card-row {
+    display: flex;
+    align-items: center;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.label {
+    font-size: 15px;
+    font-weight: bold;
+    color: #24344B;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.number {
+    margin-top: auto;
+    font-size: 30px;
+    font-weight: bold;
+    color: #2980b9;
+}
+
+.card-icon {
+    flex: 0;
+}
+
+.card-icon i {
+    font-size: 32px;
+    color: #5a5c69;
+}
+
+.tables-container {
+    margin-left: 80px;
+    display: flex;
+    justify-content: center;
+    padding: 6px;
+}
+
+.table {
+    border-collapse: collapse;
+    margin: 20px;
+    width: 88%;
+    background-color: white;
+}
+
+.table th, .table td {
+    padding: 8px;
+    border: 1.5px solid #ddd;
+    text-align: left;
+}
+
+.table th {
+    text-align: center;
+    background-color: #f0f0f0;
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.table td {
+    text-align: center;
+    color: #333333;
+    font-weight: lighter;
+}
+
+.table tr:hover {
+    border-color: #236FC8;
+    background-color: #f0f0f0;
+}
+
+
+@media (max-width: 768px) {
+
+
+    .analysis-container a {
+        margin: auto;
+        max-width: 100%;
+    }   
+
+    .cards-container {
+        margin-left: 70px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tables-container {
+        grid-template-columns: repeat(1, 1fr);
+        display: grid;
+        padding: 5px;
+    }
+    
+    .dashboard {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    
+    .label {
+        font-size: 14px;
+    } 
+    
+    .number {
+        font-size: 24px;
+    }
+    
+    .card-icon i {
+        font-size: 28px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .analysis-container {
+        display: grid;
+        margin-bottom: 0;
+        justify-content: center;
+    }
+
+    .analysis-container a {
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+
+    .cards-container, .table {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .card-content {
+        align-items: center;
+        text-align: center;
+    }
+
+    .dashboard {
+        margin-left: 50px;
+        font-size: 18px;
+    }
+    
+    .card-icon i {
+        font-size: 24px;
+    }
+
+    .table th, td {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 350px) {
+
+    .card {
+        height: auto;
+    }
+
+    .card-icon i {
+        display: none;
+    }
+
+}

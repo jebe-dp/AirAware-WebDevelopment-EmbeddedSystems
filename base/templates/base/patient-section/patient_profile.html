@@ -1,0 +1,90 @@
+{% include 'sections.html' %}
+
+{% block content %}
+
+{% load static %}
+{% load custom_filters %}
+
+<link rel="stylesheet"  href="{% static 'styles/patient/patient_profile_.css' %}">
+
+<body>
+    <div class="profile-page">
+        <div class="content">
+            <div class="content__cover">
+                <div class="content__avatar">
+                </div>
+                <div class="content__bull"></div>
+            </div>
+    
+            <a href="{% url 'patient_record' %}" class="edit-profile" target="_blank">
+                <i class="fas fa-edit"></i>
+                <span>View</span>
+            </a>
+            
+        <div class="content__title">
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        </div>
+        
+
+        <div class="profile-info">
+
+            <div class="personal-info">
+                <h2>Personal Information</h2>
+
+                <div class="info-item">
+                    <label>Birth Date:</label>
+                    <span id="birth-date">{{ user.birth_date }}</span>
+                </div>
+
+                <div class="info-item">
+                    <label>Username:</label>
+                    <span id="username">{{ user.username }}</span>
+                </div>
+
+                    <div class="info-item">
+                        <label>Address:</label>
+                        <span id="address">{{ user_profile.address }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Age:</label>
+                        <span id="age">{{ user_profile.age }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Sex:</label>
+                        <span id="sex">{{ user_profile.sex }}</span>
+                    </div>
+            </div>
+            
+            <div class="medical-info">
+                <h2>Healthcare Identification</h2>
+                    <div class="info-item">
+                        <label>PhilHealth Number:</label>
+                        <span id="philhealth">{{ economic_numbers.philhealth_num }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>NHTS Number:</label>
+                        <span id="nhts">{{ economic_numbers.nhts_num }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>4Ps Member:</label>
+                        <span id="4ps-member">{{ economic_numbers.patient_4ps_member|yes_no }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Barangay Number:</label>
+                        <span id="barangay-number">{{ economic_numbers.brgy_num }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Family Number:</label>
+                        <span id="family-number">{{ economic_numbers.family_num }}</span>
+                    </div>
+            </div>
+            
+        </div>
+    </div>        
+</body>
+
+{% endblock %}

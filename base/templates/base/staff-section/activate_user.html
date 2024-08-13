@@ -1,0 +1,55 @@
+{% include 'main.html' %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/staff/suspend_user.css' %}">
+
+<body>
+    <div class="confirmation-container">
+        <h2>Are you sure you want to activate this user?</h2>
+        <form id="activateForm">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-activate">Activate</button>
+            <a href="#" class="btn btn-cancel" onclick="cancelSuspension()">Cancel</a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('activateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const csrfToken = formData.get('csrfmiddlewaretoken');
+
+            fetch("{% url 'staff_unsuspend_user' user_id=user.id %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                    window.close();
+                } else {
+                    alert('Failed to activate user');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while activating the user.');
+            });
+        });
+
+        function cancelSuspension() {
+            alert("Activation cancelled");
+            window.close();
+        }
+    </script>
+</body>
+
+{% include 'base/patient-section/patient_profile.html' %}
+

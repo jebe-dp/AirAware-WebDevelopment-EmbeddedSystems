@@ -1,0 +1,57 @@
+{% include 'sections.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet"  href="{% static 'styles/patient/vital_signs.css' %}">
+<script type="text/javascript" src="{% static 'js/patient/patient_record.js' %}"></script> 
+
+<body>
+    <div class="record-container">
+
+        <h2 class="records-title">My Vital Signs</h2>
+
+        <div class="add-record">
+            <a href="{% url 'add_vital_signs' %}" >
+                <i class="fa fa-plus"></i>
+                Add <span>Vital Signs</span>
+            </a>
+        </div>
+
+        <div class="records-container">
+            <div id="patientsTable"></div>
+            
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Temperature</th>
+                        <th>Pulse Rate</th>
+                        <th>Blood Oxygen</th>
+                        <th>Respiratory Rate</th>
+                        <th>Blood Pressure</th>
+                        <th>Date Recorded</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for vital_sign in vital_signs %}
+                    <tr>
+                        <td>{{ vital_sign.temperature }}</td>
+                        <td>{{ vital_sign.pulse_rate }}</td>
+                        <td>{{ vital_sign.spo2 }}</td>
+                        <td>{{ vital_sign.respiratory_rate }}</td>
+                        <td>{{ vital_sign.systolic_bp }} / {{ vital_sign.diastolic_bp }}</td>
+                        <td>{{ vital_sign.created_at }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</body>
+
+
+
+
+{% endblock %}

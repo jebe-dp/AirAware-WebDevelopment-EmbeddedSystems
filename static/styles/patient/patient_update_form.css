@@ -1,0 +1,196 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #24344B;
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    max-width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    margin-top: 30px;
+    color: #236FC8;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: right;
+}
+
+.buttons i {
+    padding-right: 10px;
+}
+
+.buttons a {
+    margin-right: 40px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #f44336;
+    text-decoration: none;
+}
+
+.buttons a:hover {
+    background-color: #99231d;
+}
+
+.main-form {
+    margin-top: 50px;
+}
+
+.submit-button {
+    margin: 40px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.submit-button button {
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+}
+
+.submit-button button:hover {
+    background-color: #0f6812;
+}
+
+.info-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.info-container input,
+  input[type="date"],
+  select {
+    height: 45px;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    transition: all 0.3 ease;
+  }
+
+  .form-details {
+    background-color: #f9f9f9;
+    margin: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    line-height: 40px;
+  }
+
+  .form-details h2 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #236FC8;
+    font-size: 18px;
+  }
+
+  .form-details label {
+    margin-bottom: 40px;
+  }
+
+
+ 
+  @media (max-width: 1024px) {
+    .container {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    
+    .container {
+        border-radius: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+        max-width: 90%;
+    }
+
+    .main-form {
+        margin-top: 30px;
+    }
+
+    .info-container {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons a {
+        margin-right: 5px;
+    }
+
+    .buttons {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .container {
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .main-form {
+        margin-top: 20px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .form-details h2 {
+        font-size: 16px;
+    }
+
+    .info-container input,
+    input[type="date"],
+    select {
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .form-details {
+        font-size: 12px;
+        margin: 5px;
+        padding: 10px;
+    }
+
+    .submit-button button {
+        font-size: 12px;
+        padding: 8px 40px;
+    }
+
+    .buttons {
+        font-size: 10px;
+    }
+
+    .buttons a {
+        padding: 6px 10px;
+    }
+}
+

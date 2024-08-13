@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/patient/choose_form.css' %}">
+
+<div class="form-container">
+
+    {% include 'back-button.html' %}
+    <h2>Records Form</h2>
+
+    <div class="main-card">
+        <div class="form-card">
+            <div class="description">
+                <p>0 to 11 months</p>
+            </div>
+            <a href="{% url 'child_form' %}" class="form-link">Child</a>
+        </div>
+    
+        <div class="form-card">
+            <div class="description">
+                <p>20 years old and above</p>
+            </div>
+            <a href="{% url 'adult_form' %}" class="form-link">Adult</a>
+        </div>
+    
+        <div class="form-card">
+            <div class="description">
+                <p>1 to 19 years old</p>
+            </div>
+            <a href="{% url 'pediatric_form' %}" class="form-link">Pediatric</a>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

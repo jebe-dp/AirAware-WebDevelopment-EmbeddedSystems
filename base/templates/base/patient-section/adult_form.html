@@ -1,0 +1,45 @@
+{% include 'main.html' %}
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'styles/patient/adult_form.css' %}">
+<script type="text/javascript" src="{% static 'js/register.js' %}"></script> 
+
+<body>
+    <div class="container">
+        {% include 'back-button.html' %}
+        <div class="title">ADULT PATIENT FORM</div>
+        <form method="POST">
+            <div class="user-details">
+                {% csrf_token %}
+    
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <div class="patient_profile">
+                            <h3>PATIENT DETAILS</h3>
+                            {{ user_profile_form.as_p }}
+                        </div>  
+                        <div class="economic_numbers">
+                            <h3>HEALTH IDENTIFICATION</h3>
+                            {{ economic_numbers_form.as_p }}
+                        </div>
+                        <div class="social_history">
+                            <h3>SOCIAL HISTORY</h3>
+                            {{ social_history_form.as_p }}
+                        </div>
+                        <div class="medical_history">
+                            <h3>MEDICAL HISTORY</h3>
+                            {{ medical_history_form.as_p }}
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="button">
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock content %}

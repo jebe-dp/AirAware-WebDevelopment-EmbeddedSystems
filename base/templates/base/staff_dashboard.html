@@ -1,0 +1,97 @@
+
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% load static %}
+
+    <link rel="stylesheet"  href="{% static 'styles/staff/staff_dashboard.css' %}">
+
+<body>
+
+<div class="sidebar">
+    <div class="logo-details">
+        <div class="logo_name">Staff</div>
+        <i class='bx bx-menu' id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        
+        <li>
+            <a href="#" data-page-url="{% url 'dashboard' %}">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+
+        <li>
+            <a href="#" data-page-url="{% url 'staff_profile' %}">
+                <i class='bx bx-user'></i>
+                <span class="links_name">Profile</span>
+            </a>
+            <span class="tooltip">Profile</span>
+        </li>
+
+        <li>
+            <a href="#" data-page-url="{% url 'unverifiedforms' %}">
+                <i class='bx bx-edit'></i>
+                <span class="links_name">Unverified Forms</span>
+            </a>
+            <span class="tooltip">Unverified Forms</span>
+        </li>
+
+        <li>
+            <a href="#" data-page-url="{% url 'view_records' %}">
+                <i class='bx bx-user-pin'></i>
+                <span class="links_name">Patient Records</span>
+            </a>
+            <span class="tooltip">Patients Records</span>
+        </li>
+
+        <li>
+            <a href="#" data-page-url="{% url 'manage_users' %}">
+                <i class='bx bx-group'></i>
+                <span class="links_name">Manage Users</span>
+            </a>
+            <span class="tooltip">Manage Users</span>
+        </li>
+
+        <li>
+            <a href="#" data-page-url="{% url 'suspended_users' %}">
+                <i class='bx bx-user-x'></i>
+                <span class="links_name">Suspended Users</span>
+            </a>
+            <span class="tooltip">Suspended Users</span>
+        </li>
+
+        <li>
+            <a href="#" data-page-url="{% url 'upload_photo' %}">
+                <i class='bx bx-calendar'></i>
+                <span class="links_name">Announcement</span>
+            </a>
+            <span class="tooltip">Announcement</span>
+        </li>
+
+        <li>
+            <a href="#" data-page-url="{% url 'password_requests' %}">
+                <i class='bx bx-reset'></i>
+                <span class="links_name">Password Requests</span>
+            </a>
+            <span class="tooltip">Password Requests</span>
+        </li>
+        
+    </ul>
+</div>
+
+<div id="pageContent">
+
+    {% include 'base/staff-section/dashboard.html' %}
+    
+</div>
+
+<script type="text/javascript" src="{% static 'js/staff/staff_dashboard.js' %}"></script>
+
+</body>
+</html>
+
+{% endblock %}

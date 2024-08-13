@@ -1,0 +1,93 @@
+<!-- users_analysis.html -->
+{% extends 'main.html' %}
+{% block content %}
+
+{% load static %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'styles/staff/social_analysis.css' %}">
+
+
+<div class="container">
+    <div class="chart-container">
+        <h2>Graph - Number of Patients Per Day</h2>
+        <canvas id="patientsAnalysisChart" class="small-chart"></canvas>
+    </div>
+    <div class="chart-container">
+        <h2>Graph - Number of Patients Per Week</h2>
+        <canvas id="patientsWeeklyChart" class="small-chart"></canvas>
+    </div>
+    <div class="analysis-desc">
+        <p><strong>Patients Today:</strong> {{ patients_today }}</p>
+        <p><strong>Patients This Week:</strong> {{ patients_per_week }}</p>
+        <p><strong>Patients This Month:</strong> {{ patients_per_month }}</p>
+    </div>
+</div>
+
+<script>
+    // Parse data from the context JSON string
+    var patients_per_day_data = JSON.parse('{{ patients_per_day_data|escapejs }}');
+    var patients_per_week_data = JSON.parse('{{ patients_per_week_data|escapejs }}');
+
+    // Extract dates and counts from the daily data
+    var dates = patients_per_day_data.map(item => item[0]);
+    var counts = patients_per_day_data.map(item => item[1]);
+
+    // Extract weeks and counts from the weekly data
+    var weeks = patients_per_week_data.map(item => item[0]);
+    var week_counts = patients_per_week_data.map(item => item[1]);
+
+    // Create the line chart using the patients per day data
+    var ctx = document.getElementById('patientsAnalysisChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: dates.reverse(),  // Reverse to display in chronological order
+            datasets: [{
+                label: 'Number of Patients Per Day',
+                data: counts.reverse(),  // Reverse to match the dates
+                backgroundColor: 'rgba(255, 0, 0, 0.8)', // Transparent red color
+                borderColor: 'rgba(255, 0, 0, 1)', // Solid red color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+
+    // Create the bar chart using the patients per week data
+    var ctx2 = document.getElementById('patientsWeeklyChart').getContext('2d');
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: weeks.reverse(),  // Reverse to display in chronological order
+            datasets: [{
+                label: 'Number of Patients Per Week',
+                data: week_counts.reverse(),  // Reverse to match the weeks
+                backgroundColor: 'rgba(0, 123, 255, 0.7)', // Solid blue color
+                borderColor: 'rgba(0, 123, 255, 1)', // Solid blue color
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock content %}

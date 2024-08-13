@@ -1,0 +1,252 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.search-form {
+    display: flex;
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+
+
+.search-form input {
+    width: 250px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    height: 30px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    font-size: 16px;
+}
+.search-form button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background: #236FC8;
+    text-align: center;
+    color: #ffff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-form button:hover {
+    background: #1A4F99;
+}
+
+
+.container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 15px - 78px);
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    background-color: #ffff;  
+}
+
+.record-container {
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    background-color: #ffff;  
+}
+
+
+.records-title {
+    color: #236FC8;
+    margin-top: 10px;
+    font-weight: bolder;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.records-table {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-top: 20px;
+}
+
+.records-table th,
+.records-table td {
+    border: none; 
+    padding: 10px;
+    text-align: center;
+}
+
+.records-table thead {
+    background-color: #F7F8FC;
+    color: #333333;
+}
+
+.records-table th:first-child,
+.records-table th:last-child {
+    font-size: 17px;
+}
+
+
+.records-table tr:hover {
+    background-color: #c8d2e7;
+}
+
+.records-table .even {
+    background-color: #ffffff;
+}
+
+.records-table .odd {
+    background-color: #F7F8FC;;
+}
+
+.view-button,
+.add-doctor-notes,
+.add-nurse-notes { 
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 20px; 
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px; 
+}
+
+.view-button {
+    background-color: #236FC8;
+}
+
+.view-button:hover {
+    background-color: #1A4F99;
+}
+
+.add-doctor-notes {
+    background-color: #21a130;
+}
+
+.add-doctor-notes:hover {
+    background-color: #276221;
+}
+
+.add-nurse-notes {
+    background-color: #f3b037;
+}
+
+.add-nurse-notes:hover {
+    background-color: #816510;
+}
+
+.records-table a {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 1365px) {
+    .records-table th:nth-child(1),
+    .records-table td:nth-child(1) {
+        display: none;
+    }
+
+    .records-container{
+        margin-left: 80px;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+    
+    .records-table th:nth-child(3),
+    .records-table td:nth-child(3) {
+        display: none; 
+    }
+
+    .container{
+        margin-top: 2px;
+    }
+
+    .view-button,
+    .add-doctor-notes,
+    .add-nurse-notes {
+        padding: 3px 8px;
+        margin-bottom: 10px; 
+        font-size: 12px; 
+        display: grid;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+
+    .records-title {
+        font-size: 24px; 
+    }
+
+    .records-table th:nth-child(2),
+    .records-table th:nth-child(4),
+    .records-table th:nth-child(5){
+        font-size: 14px;
+    }
+
+    .records-table td, .search-form input, .search-form button {
+        font-size: 12px;
+    }
+
+    .records-table th,
+    .records-table td, .records-table tr{
+        border: none; 
+    }
+
+
+
+}
+
+@media screen and (max-width: 600px) {
+
+    .records-container{
+        margin-left: 60px;
+    }
+
+    .records-title {
+        font-size: 18px;
+    }
+
+    .records-table th:nth-child(4),
+    .records-table td:nth-child(4) {
+        display: none; 
+    }
+
+    .records-table th,
+    .records-table td, 
+    .records-table tr,
+    .records-table {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .records-container thead th {
+        font-size: 12px;
+    }
+
+    .records-table td {
+        font-size: 12px;
+        padding: 8px; 
+    }
+
+}
+
+

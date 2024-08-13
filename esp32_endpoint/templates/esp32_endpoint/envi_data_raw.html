@@ -1,0 +1,90 @@
+<!-- sensors_data.html -->
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sensor Data</title>
+    <style>
+      /* Basic table styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+
+      /* Responsive table styles */
+      @media screen and (max-width: 600px) {
+        /* Hide the header on small screens */
+        table thead {
+          display: none;
+        }
+        /* Display table rows as block for better stacking */
+        table,
+        tr,
+        td {
+          display: block;
+          width: 100%;
+        }
+        /* Adjust padding for better spacing */
+        td {
+          padding: 6px;
+        }
+        /* Highlight the header on hover for better readability */
+        table tbody tr:hover {
+          background-color: #f2f2f2;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Sensor Data</h1>
+    <div class="page">
+      <h2>Page {{ page_obj.number }}</h2>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <!-- Iterate over field names to generate table header -->
+              {% for field_name in field_names %} {% if field_name != 'id' %}
+              <!-- Skip 'id' field -->
+              <th>{{ field_name }}</th>
+              {% endif %} {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in data_list %}
+            <tr>
+              <!-- Iterate over model fields to generate table data -->
+              {% for field_name in field_names %} {% if field_name != 'id' %}
+              <!-- Skip 'id' field -->
+              {% if field_name == 'created_at' %}
+              <td>{{ data.created_at|date:"Y-m-d H:i:s" }}</td>
+              {% else %}
+              <td>{{ data|getattribute:field_name }}</td>
+              {% endif %} {% endif %} {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <hr />
+      <div class="pagination">
+        {% for page_num in page_obj.paginator.page_range %}
+        <a href="?page={{ page_num }}">{{ page_num }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

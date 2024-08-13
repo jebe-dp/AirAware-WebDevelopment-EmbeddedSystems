@@ -1,0 +1,70 @@
+{% load custom_filters %}
+
+<div class="info-container">
+    <h2 class="form-title">Pediatric Details</h2>
+    <p><strong>Address:</strong> {{ user_profile.address }}</p>
+    <p><strong>Sex:</strong> {{ user_profile.sex }}</p>
+    <p><strong>Age:</strong> {{ user_profile.age }}</p>
+    <p><strong>Mother's Name:</strong> {{ pediatric_details.mother_name }}</p>
+    <p><strong>Father's Name:</strong> {{ pediatric_details.father_name }}</p>
+    <p><strong>Mother's Age:</strong> {{ pediatric_details.mother_age }}</p>
+    <p><strong>Father's Age:</strong> {{ pediatric_details.father_age }}</p>
+    <p><strong>Birth Order:</strong> {{ pediatric_details.birth_order }}</p>
+</div>
+
+<div class="info-container">
+    <h2 class="form-title">Health Identification Numbers</h2>
+    <p><strong>Philhealth Number:</strong> {{ economic_numbers.philhealth_num }}</p>
+    <p><strong>NHTS Number:</strong> {{ economic_numbers.nhts_num }}</p>
+    <p><strong>4Ps Member:</strong> {{ economic_numbers.patient_4ps_member|yes_no }}</p>
+    <p><strong>Brgy Number:</strong> {{ economic_numbers.brgy_num }}</p>
+    <p><strong>Family Number:</strong> {{ economic_numbers.family_num }}</p>
+</div>
+
+<div class="info-container">
+    <h2 class="form-title"> Social History</h2>
+    <p><strong>Smoker:</strong> {{ social_history.smoker|yes_no }}</p>
+    <p><strong>Alcohol Intake:</strong> {{ social_history.alcohol_intake|yes_no }}</p>
+    <p><strong>Prohibited Drug:</strong> {{ social_history.prohibited_drug|yes_no }}</p>
+    <p><strong>Cigarette Sticks Per Day:</strong> {{ social_history.cigarette_sticks_per_day }}</p>
+</div>
+
+<div class="info-container">
+    <h2 class="form-title">Immunization History</h2>
+    <p><strong>Tetanus Toxoid Mother Status:</strong> {{ immunization_history.tetanus_toxoid_mother_status }}</p>
+    <p><strong>BCG:</strong> {{ immunization_history.bcg|yes_no }}</p>
+    <p><strong>HEPA:</strong> {{ immunization_history.hepa|yes_no }}</p>
+    <p><strong>Pental 1:</strong> {{ immunization_history.pental_1|yes_no }}</p>
+    <p><strong>Pental 2:</strong> {{ immunization_history.pental_2|yes_no }}</p>
+    <p><strong>Pental 3:</strong> {{ immunization_history.pental_3|yes_no }}</p>
+    <p><strong>OPV 1:</strong> {{ immunization_history.opv_1|yes_no }}</p>
+    <p><strong>OPV 2:</strong> {{ immunization_history.opv_2|yes_no }}</p>
+    <p><strong>OPV 3:</strong> {{ immunization_history.opv_3|yes_no }}</p>
+    <p><strong>Rota 1:</strong> {{ immunization_history.rota_1|yes_no }}</p>
+    <p><strong>Rota 2:</strong> {{ immunization_history.rota_2|yes_no }}</p>
+    <p><strong>Rota 3:</strong> {{ immunization_history.rota_3|yes_no }}</p>
+    <p><strong>AMV:</strong> {{ immunization_history.amv|yes_no }}</p>
+    <p><strong>MR:</strong> {{ immunization_history.mr|yes_no }}</p>
+    <p><strong>MMR:</strong> {{ immunization_history.mmr|yes_no }}</p>
+    <p><strong>Other Immunization:</strong> {{ immunization_history.other_immunization }}</p>
+    <p><strong>Vitamin A:</strong> {{ immunization_history.vitamin_a |yes_no}}</p>
+    <p><strong>Breastfeeding:</strong> {{ immunization_history.breastfeeding|yes_no }}</p>
+    <p><strong>Deworming:</strong> {{ immunization_history.deworming|yes_no }}</p>
+    <p><strong>Deworm Date:</strong> {{ immunization_history.deworm_date }}</p>
+</div>
+
+<div class="info-container">
+    <h2 class="form-title">Medical History</h2>
+    <p><strong>Diabetes:</strong> {{ medical_history.diabetes|yes_no }}</p>
+    <p><strong>Asthma:</strong> {{ medical_history.asthma|yes_no }}</p>
+    <p><strong>Hypertension (HPN):</strong> {{ medical_history.hypertension|yes_no }}</p>
+    <p><strong>Pulmonary Tuberculosis (PTB):</strong> {{ medical_history.pulmonary_tubercolosis|yes_no }}</p>
+    <p><strong>Cancer:</strong> {{ medical_history.cancer|yes_no }}</p>
+    <p><strong>Cough:</strong> {{ medical_history.cough_2_weeks|yes_no }}</p>
+    <p><strong>Other Medical History:</strong> {{ medical_history.other_medical_history }}</p>
+    <p><strong>Medication Taken:</strong> {{ medical_history.medication_taken }}</p>
+    <p><strong>Family Planning:</strong> {{ medical_history.family_planning|yes_no }}</p>
+    <p><strong>Immunization:</strong> {{ medical_history.immunization|yes_no }}</p>
+    <p><strong>Immunization Date:</strong> {{ medical_history.immunization_date }}</p>
+</div>
+

@@ -1,0 +1,31 @@
+{% include 'sections.html' %}
+
+{% block content %}
+
+{%load static%}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/staff/upload_photo.css' %}">
+
+<body>
+
+  <div class="form-container">
+    <h2 class="form-title">Manage Announcements</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.as_p }}
+      </div>
+      <div class="button">
+        <button type="submit" class="btn">Upload</button>
+      </div>
+      
+    </form>
+  </div>
+
+</body>
+
+
+
+{% endblock content %}
+
+

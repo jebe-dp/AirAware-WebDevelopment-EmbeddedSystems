@@ -1,0 +1,58 @@
+{% include 'main.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'styles/staff/add_nurse_notes.css' %}">
+
+<body>
+    <div class="container">
+        <div class="title">STAFF/NURSE NOTES FORM</div>
+        
+        <div class="patient-info">
+            <h2>Patient: <span>{{ patient_name }}</span></h2>
+        </div>
+
+        <form method="POST" id="nurse-notes-form">
+            <div class="user-details">
+                {% csrf_token %}
+                <div class="column">
+                    <h2>Notes</h2>
+                    {{ nurse_notes_form.as_p }}
+                </div>
+                <div class="column">
+                    <h2>Vital Signs</h2>
+                    {{ vital_signs_form.as_p }}
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+
+    <script>
+        document.getElementById('nurse-notes-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                window.close();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+{% endblock content %}

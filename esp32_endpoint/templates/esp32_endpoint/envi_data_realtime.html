@@ -1,0 +1,53 @@
+<!-- sensor_data.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor Data</title>
+</head>
+<body>
+    <h1>Sensor Data</h1>
+    <p>Last Update: <span id="last_update"></span></p>
+    <ul>
+        <li>Temperature: <span id="temp"></span></li>
+        <!-- <li>MLX Ambient Temperature: <span id="mlx_ambient_temp"></span></li> -->
+        <!-- <li>DS Temperature: <span id="ds_temp"></span></li> -->
+        <li>Humidity: <span id="humidity"></span></li>
+        <li>Heat Index: <span id="heat_index"></span></li>
+        <li>Air Gases: <span id="air_gases"></span></li>
+        <li>PM1: <span id="pm1"></span></li>
+        <li>PM2.5: <span id="pm2_5"></span></li>
+        <li>PM10: <span id="pm10"></span></li>
+    </ul>
+
+    <!-- JavaScript for updating sensor data -->
+    <script>
+        function updateSensorData() {
+            fetch("{% url 'latest_envi_data' %}")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('last_update').textContent = data.created_at;
+                document.getElementById('temp').textContent = data.temp;
+                document.getElementById('mlx_ambient_temp').textContent = data.mlx_ambient_temp;
+                document.getElementById('ds_temp').textContent = data.ds_temp;
+                document.getElementById('humidity').textContent = data.humidity;
+                document.getElementById('heat_index').textContent = data.heat_index;
+                document.getElementById('air_gases').textContent = data.air_gases;
+                document.getElementById('pm1').textContent = data.pm1;
+                document.getElementById('pm2_5').textContent = data.pm2_5;
+                document.getElementById('pm10').textContent = data.pm10;
+            })
+            .catch(error => {
+                console.error('Error fetching sensor data:', error);
+            });
+        }
+
+        // Call updateSensorData function initially
+        updateSensorData();
+
+        // Update sensor data every 5 seconds
+        setInterval(updateSensorData, 5000);
+    </script>
+</body>
+</html>

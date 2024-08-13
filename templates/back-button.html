@@ -1,0 +1,18 @@
+
+{% load static %}
+
+<link rel="stylesheet"  href="{% static 'styles/back-button.css' %}">
+
+<body>
+    <div class="back">
+        <button onclick="goBack()"><i class="fa fa-arrow-left-long"></i>Back</button>
+    </div>
+
+    <script>
+                        
+        function goBack() {
+        window.history.back();
+                        }
+    </script>
+
+</body>

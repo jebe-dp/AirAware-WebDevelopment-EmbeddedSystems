@@ -1,0 +1,212 @@
+{% include 'sections.html' %}
+
+{% block content %}
+
+{% load static %}
+
+    <link rel="stylesheet"  href="{% static 'styles/staff/dashboard.css' %}">
+
+    <body>
+
+        <div class="dash-container">
+
+            <h2 class="dashboard">
+                Dashboard
+            </h2>
+
+            <div class="analysis-container">
+              <a href="{% url 'patients_analysis' %}" class="view-users" target="_blank"><i class="fa fa-chart-line"></i> Users Analysis</a>
+              <a href="{% url 'demographics_analysis' %}" class="view-demo" target="_blank"><i class="fa fa-chart-bar"></i> Demographics Analysis</a>
+              <a href="{% url 'social_history_analysis' %}" class="view-social" target="_blank"><i class="fa fa-chart-line"></i> Social Analysis</a>
+              <a href="{% url 'medical_history_analysis' %}" class="view-medical" target="_blank"><i class="fa fa-chart-bar"></i> Medical Analysis</a>
+          </div>
+    
+
+            <div class="cards-container">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Total Users</div>
+                                <div class="number">{{total_users}}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Total Patients</div>
+                                <div class="number">{{total_patients}}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa fa-hospital-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Total Staff</div>
+                                <div class="number">{{total_staffs}}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa fa-user-nurse"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Submitted Forms</div>
+                                <div class="number">{{ submitted_forms_count }}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="far fa-newspaper"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Pending Forms</div>
+                                <div class="number">{{ pending_forms_count }}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa fa-question-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+               
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Child Patients</div>
+                                <div class="number">{{ child_patients }}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa fa-child"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+               
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Pediatric Patients</div>
+                                <div class="number">{{ pediatric_patients }}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-row">
+                            <div class="card-content">
+                                <div class="label">Adult Patients</div>
+                                <div class="number">{{ adult_patients }}</div>
+                            </div>
+                            <div class="card-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="tables-container">
+
+                <table class="table">
+                    <tr>
+                        <th>Medical History</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Diabetes</td>
+                        <td>{{ medical_conditions.diabetes }}</td>
+                    </tr>
+                    <tr>
+                        <td>Asthma</td>
+                        <td>{{ medical_conditions.asthma }}</td>
+                    </tr>
+                    <tr>
+                        <td>Hypertension</td>
+                        <td>{{ medical_conditions.hypertension }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pulmonary Tuberculosis</td>
+                        <td>{{ medical_conditions.pulmonary_tubercolosis}}</td>
+                    </tr>
+                    <tr>
+                        <td>Cancer</td>
+                        <td>{{ medical_conditions.cancer }}</td>
+                    </tr>
+                    <tr>
+                        <td>Cough for 2 weeks</td>
+                        <td>{{ medical_conditions.cough_2_weeks }}</td>
+                    </tr>
+                </table>
+
+                <table class="table">
+                    <tr>
+                        <th>Social History</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Smoker</td>
+                        <td>{{ social_habits.smoker }}</td>
+                    </tr>
+                    <tr>
+                        <td>Alcohol Intake</td>
+                        <td>{{ social_habits.alcohol_intake }}</td>
+                    </tr>
+                    <tr>
+                        <td>Prohibited Drugs</td>
+                        <td>{{ social_habits.prohibited_drug }}</td>
+                    </tr>
+                    
+                </table>
+
+                
+            </div>
+
+        </div>
+      
+    </body>
+
+</html>
+
+
+{% endblock %}
+
